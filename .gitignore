@@ -1,0 +1,7 @@
+.env
+race/
+push.sh
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
