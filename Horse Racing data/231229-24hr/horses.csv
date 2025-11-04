@@ -1,0 +1,346 @@
+Races_ID,RaceTime,CardNo,HorseName,AgeWt,Trainer,Jockey,Or,FFigs,Draw,Days,Age,Aid,Allow,cdb
+1,Doncaster,1,Butler's Brief,12-0,A Ralph,Nick Scholfield,122,3PP215,,14,8,p,,   
+1,Doncaster,2,Jaytee,11-7,Ian Williams,Sam Twiston-Davies,115,2118P1,,14,8,p,,  CD 
+1,Doncaster,3,Fabuleux Du Clos (FR),11-0,S G West,Jack Quinlan,108,3/341-53,,76,8,t p1,,   bf
+2,Doncaster,1,Brora Breeze,11-0,Rebecca Menzies,Danny McMenamin,-,,,(104F),3,,,   
+2,Doncaster,2,Clenched,11-0,Miss J Feilden,Jack Quinlan,-,,,(58F),3,,,   
+2,Doncaster,3,Ezmerellda,11-0,A King,Tom Cannon,-,5,,28,3,,,   
+2,Doncaster,4,Leazy Lindsay,11-0,Anthony Charlton,Harry Reed,-,,,(63F),3,,,   
+2,Doncaster,5,Love True (FR),11-0,Greenhall & Guerriero,Toby Wynne,-,,,(75F),3,,3,   
+2,Doncaster,6,Miss Raindrop,11-0,Miss Tracy Waggott,Tom Midgley,-,,,(143F),3,,3,   
+2,Doncaster,7,Oceana Orange,11-0,L J Morgan,Adam Wedge,-,8,,45,3,,,   
+2,Doncaster,8,Ruler Of The River,11-0,S England,Jonathan England,87,23,,13,3,t,,   
+2,Doncaster,9,Therapist,11-0,N J Henderson,N de Boinville,-,3,,9,3,,,   bf
+2,Doncaster,10,Zooks (FR),11-0,Ian Williams,C J Todd,-,35,,21,3,,,   
+3,Doncaster,1,Onemorefortheroad,11-10,N B King,Jack Quinlan,129,805-041,,13,8,p,,  CD 
+3,Doncaster,2,Parisencore (FR),11-8,N G Richards,Danny McMenamin,127,1524-P2,,55,7,,,D   
+3,Doncaster,3,Ukantango,11-2,Olly Murphy,S Bowen,121,2P30-92,,30,6,,,D   
+3,Doncaster,4,Richhill,10-11,D Skelton,Harry Skelton,116,3124-53,,28,6,t,,   
+3,Doncaster,5,Chanceux,10-9,A Ralph,Brendan Powell,114,F325-81,,13,7,h,,D   
+4,Doncaster,1,Fantastic Lady (FR),11-6,N J Henderson,N de Boinville,144,U/1023-5,,48,8,,,D C  
+4,Doncaster,2,Pink Legend,11-6,Miss V Williams,Charlie Deutsch,142,1311-41,,9,9,,,D   
+4,Doncaster,3,Zambella (FR),11-6,N A Twiston-Davies,Sam Twiston-Davies,144,21124-1,,20,8,,,  CD 
+4,Doncaster,4,Walk In Clover,11-5,D Skelton,Harry Skelton,121,423F34,,14,6,,,D   
+4,Doncaster,5,Limerick Lace,11-4,G P Cromwell,Jonjo O'Neill Jr.,145,1123-12,,40,6,,,D   bf
+4,Doncaster,6,Carole's Pass (FR),11-2,Amy Murphy,Jack Quinlan,125,1465-33,,39,5,,,   
+4,Doncaster,7,La Renommee (FR),11-2,Dr Richard Newland & Jamie Insole,Charlie Hammond,127,113-12P,,20,5,,,D   
+4,Doncaster,8,Royale Margaux (FR),11-2,T Symonds,Benjamin Poste,126,5P42-82,,14,5,t,,   
+5,Doncaster,1,Parade Away,11-6,Anthony Charlton,Bradley Harris,123,4-21172,,13,5,t,5,D   bf
+5,Doncaster,2,Banteer,11-0,P F Nicholls,H Cobden,-,25-53,,17,5,,,   
+5,Doncaster,3,Bhaloo,11-0,N J Henderson,N de Boinville,-,4/1-3,,46,5,,,   
+5,Doncaster,4,Casual Observer,11-0,Harry Derham,Paul O'Brien,-,2-4,,22,4,,,   
+5,Doncaster,5,Champetre,11-0,Oliver Signy,James Davies,-,724-P,,61,5,p,,   
+5,Doncaster,6,Dancing In Brazil,11-0,A King,Tom Cannon,-,1343-U2,,32,4,,,   
+5,Doncaster,7,Garitsa Bay,11-0,Ian Williams,C J Todd,-,7,,36,5,,,   
+5,Doncaster,8,Luke The Drifter,11-0,H D Daly,Sam Twiston-Davies,-,5/6,,37,6,,,   
+5,Doncaster,9,Montecam,11-0,N J Henderson,James Bowen,-,6-4,,232,4,,,   
+5,Doncaster,10,Nothinelsematters,11-0,A M Hales,Harry Bannister,-,F-P4,,230,5,,,   
+5,Doncaster,11,Ronnies Reflection,11-0,B I Case,Jack Quinlan,-,,,,5,t1,,   
+5,Doncaster,12,Warrior's Fate,11-0,C & A Pogson,R T Dunne,-,6/53-P6,,12,6,,,   
+5,Doncaster,13,Braunton Burrows,10-7,Miss Sarah-jayne Davies,Tabitha Worsley,-,0-66,,30,4,,3,   
+6,Doncaster,1,A Wave Of The Sea,12-2,B M R Haslam,Jonjo O'Neill Jr.,142,9-4404P,,20,7,,,   
+6,Doncaster,2,Twinjets,11-11,P F Nicholls,H Cobden,137,2P1-931,,14,6,,,  CD 
+6,Doncaster,3,Erne River,11-8,Nick Kent,Charlie Hammond,134,2408-0P,,41,8,p1,, C  
+6,Doncaster,4,Lord Accord,11-5,N P Mulholland,Charlie Deutsch,131,96P9-4P,,62,8,t p,,D   
+6,Doncaster,5,One More Fleurie,10-3,Ian Williams,C J Todd,115,P952P-P,,51,9,,,  CD 
+6,Doncaster,6,Dreaming Blue,10-2,A J Honeyball,Rex Dingle,114,413-583,,23,6,t,, C  
+7,Doncaster,1,Rewired,12-0,Dr Richard Newland & Jamie Insole,Luke Scott,115,122214-,,277,5,,3,D   
+7,Doncaster,2,Tintintin (FR),12-0,F O'Brien,Jack Hogan,115,1222-01,,18,4,t,3,D   
+7,Doncaster,3,Wholeofthemoon,11-9,D McCain Jnr,Peter Kavanagh,110,23-51,,14,4,h,3, C  
+7,Doncaster,4,East End Girl,11-0,A Ralph,Jay Tidball,101,023-412,,42 (7F),6,,3,D   bf
+7,Doncaster,5,Whyzzat,10-8,Miss Sarah-jayne Davies,Tabitha Worsley,95,1776/5-7,,30,5,,,   
+8,Kelso,1,Great Pepper (FR),11-7,James Moffatt,Charlotte Jones,-,P11-1,,49,5,,3,   
+8,Kelso,2,Johnny Dogs,11-7,Mrs Corbett,Sam Coltherd,-,FFP51-1,,211,6,,,   
+8,Kelso,3,Clovis Island,11-0,N G Richards,Sean Quinlan,-,21-4,,49,5,,,   bf
+8,Kelso,4,Greyrobin Star,11-0,G T Bewley,Edward Austin,-,3FF4-5P,,64,7,t1,5,   
+8,Kelso,5,Lahardaun,11-0,G T Bewley,Jonathon Bewley,-,3F2-5,,49,6,,,   
+8,Kelso,6,Mount Falcon,11-0,W T Reed,S Mulqueen,-,3P-00,,41,5,,,   
+8,Kelso,7,Beat The Boum,10-13,Mrs Jacqueline Stephen,Jamie Hamilton,-,4,,242,4,,,   
+8,Kelso,8,To Chase A Dream,10-13,Paul Collins,Mr John Dawson,114,81-22,,41,4,,3,   
+8,Kelso,9,Somebody's Fortune,10-7,Miss Lucinda V Russell,Alan Doyle,-,632-,,251,5,,5,   
+9,Kelso,1,Schalke,12-0,Rebecca Menzies,William Maggs,122,214-898,,12,8,v1,7,  CD 
+9,Kelso,2,Hashtag Boum (FR),11-6,Ruth Jefferson,Henry Brooke,114,2321-62,,31,6,,,  CD bf
+9,Kelso,3,Imaginary Dragon (FR),11-2,A M Thomson,Ryan Mania,110,P/303-2,,36,5,,,   
+9,Kelso,4,Paddy The Horse,11-2,G T Bewley,Jonathon Bewley,110,1F43P-4,,48,8,,,   
+9,Kelso,5,Dunnet Head,11-2,I Jardine,B S Hughes,110,142-18,,18,5,,,   bf
+9,Kelso,6,Kingston Bridge,11-1,Ewan Whillans,Craig Nichol,109,4312-63,,37,5,,, C  
+9,Kelso,7,Mack The Man,11-0,N W Alexander,Mr Kit Alexander,108,5/5453-6,,18,9,,5,   
+9,Kelso,8,So Many Roads,10-7,D W Whillans,Sean Quinlan,101,561F-64,,36,6,,,   bf
+10,Kelso,1,Cilaos Emery (FR),12-0,Mrs S Leech,Miss Roisin Leech,130,4P88-8F,,23,11,h,7,D   
+10,Kelso,2,Ganapathi (FR),11-7,R Michael Smith,G Sheehan,123,540-473,,35,7,t v1,,   
+10,Kelso,3,Gold Des Bois (FR),11-5,I Jardine,B S Hughes,121,546-329,,42,9,t,,  CD 
+10,Kelso,4,Traprain Law (FR),11-4,Miss Lucinda V Russell,P W Wadge,120,12113-3,,55,5,t,3,D C  
+10,Kelso,5,Duty Calls,10-2,Miss S E Forster,Lewis Stones,104,3416-42,,48,10,,3,  CD 
+11,Kelso,1,Imperial Merlin,11-12,J J Quinn,Henry Brooke,127,112F1-5,,48,6,,,D   bf
+11,Kelso,2,Young Buster,11-12,F O'Brien,Liam Harrison,127,1/614-11,,30,7,,, C  
+11,Kelso,3,Overcourt,11-2,W Coltherd,Sam Coltherd,117,423/225,,30,9,,,   
+11,Kelso,4,Gentleman De Mai (FR),11-0,Mrs R Dobbin,Craig Nichol,115,36225-1,,48,7,t v,, C  
+11,Kelso,5,Domandlouis,10-5,Miss Lucinda V Russell,D R Fox,106,P422-42,,62,6,p,, C  
+12,Kelso,1,Ip Up (FR),12-0,Jedd O'Keeffe,Craig Nichol,115,32-5313,,29,5,,,D   
+12,Kelso,2,Parvos,11-6,A M Thomson,Ryan Mania,107,5323-5P,,62,6,t,,   
+12,Kelso,3,Nell's Bells,11-3,D McCain Jnr,Theo Gillard,104,80/1531-,,258,7,,,   
+12,Kelso,4,Atlantic Dancer,11-1,N W Alexander,Bruce Lynn,102,27121-6,,36,10,,3,  CD 
+12,Kelso,5,Similar Story,11-0,W Coltherd,Sam Coltherd,101,P/2-1542,,30,5,,,   
+12,Kelso,6,Line In The Sand,10-6,G T Bewley,Jonathon Bewley,93,396792,,50,5,,,   
+12,Kelso,7,Prontoanita (FR),10-2,I Jardine,B S Hughes,89,246-68,,18,4,,,   
+13,Kelso,1,Ballyfort,11-4,N W Alexander,Bruce Lynn,-,3F423-5,,55,5,h1,3,   
+13,Kelso,2,Boot 'n' Shoe,11-4,Rebecca Menzies,Nathan Moscrop,-,24/,,696,5,,,   
+13,Kelso,3,Breizh River (FR),11-4,Paul Robson,Craig Nichol,-,9-237,,43,5,,,   
+13,Kelso,4,Dapper Gent,11-4,M A Barnes,Conor Rabbitt,-,5676-,,447,6,t,5,   
+13,Kelso,5,Dream Boy,11-4,W Coltherd,Sam Coltherd,-,5/P1-445,,18,5,,,   
+13,Kelso,6,Flying Sandpiper,11-4,Mrs Jacqueline Stephen,Jamie Hamilton,-,7-0,,48,4,,,   
+13,Kelso,7,Foshan,11-4,Adam Nicol,P W Wadge,-,,,(19F),4,p,3,   
+13,Kelso,8,Hazy Glen (FR),11-4,M & D Easterby,Henry Brooke,-,16,,40,4,,,D   
+13,Kelso,9,Isholo Du Vivien (FR),11-4,D McCain Jnr,B S Hughes,-,P2-F14,,27,5,,,   
+13,Kelso,10,Master Bricklayer,11-4,N W Alexander,Sean Quinlan,-,8-0,,18,5,,,   
+13,Kelso,11,Northern Cardinal (FR),11-4,Miss Lucinda V Russell,S Mulqueen,-,3-9,,48,4,,,   
+13,Kelso,12,Walk On Quest,11-4,Miss Lucinda V Russell,D R Fox,-,2-,,278,4,t1,,   
+13,Kelso,13,Wolfburg,11-4,A M Thomson,Ryan Mania,-,03,,54,4,,,   
+13,Kelso,14,Miss Arabella,10-11,A M Thomson,G Sheehan,-,4P-262,,31,5,,,   
+14,Kelso,1,Just Don't Know,12-0,Paul Robson,Mr Callum Pritchard,118,416P-24,,48,10,,7, C  
+14,Kelso,2,Rath An Iuir,11-8,Mrs R Dobbin,Mr Nick Orpwood,112,51538-8,,55,10,v1,3,  CD 
+14,Kelso,3,Camp Belan,11-1,Miss Lucinda V Russell,Mr Gregor Walkingshaw,105,F35-443,,30,7,b1,7,  CD 
+14,Kelso,4,Onestepatatime,10-10,J S Wainwright,Mr James King,100,126-414,,31,8,p,,D   bf
+14,Kelso,5,Don Brocco,10-2,Graham & Rutherford,Miss Lucy Brown,92,P7-6863,,16,7,t p,7,   
+14,Kelso,6,Gipsy Lee Rose (FR),10-2,N W Alexander,Mr Paddy Hanlon,92,238-531,,30,9,t v,7,  CD 
+15,Southwell,1,Sienna Breeze,9-10,Mrs L Wadham,S H James,61,208-025,(1),22,5,p,,D   
+15,Southwell,2,King Of York,9-10,S Dixon,Phil Dennis,61,494064,(9),7,4,p,,   
+15,Southwell,3,Mr Strutter,9-9,D Thompson,Elle-May Croot,60,126201,(3),59,9,,7,D C  
+15,Southwell,4,Lucky Protector,9-8,Ivan Furtado,T E Whelan,60,67230,(8),22,3,h,,   
+15,Southwell,5,Back From Dubai,9-8,Kevin Frost,Lewis Edmunds,59,841960,(4),114,6,,,  CD 
+15,Southwell,6,Captain Corelli,9-7,Miss J A Camacho,Ryan Sexton,58,8-08986,(7),45,6,,3,D   
+15,Southwell,7,Al Suil Eile (FR),9-6,S A Harris,Laura Pearson,57,6-42465,(6),14,7,,, C  
+15,Southwell,8,My Boy Benji,9-4,S England,T Eaves,56,0847,(12),131,3,,,   
+15,Southwell,9,Revoquable,9-2,T D Easterby,D Allan,53,705102,(2),22,4,t,,  CD 
+15,Southwell,10,Kodi Noir,9-1,Alice Haynes,K T O'Neill,53,432065,(5),14,3,h,,   
+15,Southwell,11,Equiami,8-12,P J McBride,A J Farragher,50,096451,(11),22,3,,,  CD 
+15,Southwell,12,Straitouttacompton,8-9,M C Chapman,Gina Mangan,46,970989,(10),150 (54J),7,t,3,D C  
+16,Southwell,1,Amaysmont,9-10,Kevin Frost,D Nolan,61,409745,(3),20,6,,,D   bf
+16,Southwell,2,Miss Britain,9-9,I W McInnes,Billy Garritty,60,870504,(4),20,4,,,  CD 
+16,Southwell,3,Locked N' Loaded,9-8,A W Carroll,P J McDonald,59,882577,(10),19,6,,,   
+16,Southwell,4,David's Diva,9-8,B R Millman,Gina Mangan,60,5-336,(12),24,3,,3,   bf
+16,Southwell,5,Camacho Star,9-7,K A Ryan,T Eaves,59,100041,(2),14,3,,,D C  
+16,Southwell,6,Rose Light,9-6,Gemma Tutty,Rowan Scott,57,243756,(11),24,4,,,   
+16,Southwell,7,Nine Elms (USA),9-4,Kevin Frost,Lewis Edmunds,55,635790,(8),13,8,b,,D C  
+16,Southwell,8,Daafy (USA),9-4,D Shaw,Cam Hardie,55,546567,(7),18,6,v,,  CD 
+16,Southwell,9,Martin's Brig,9-2,D Thompson,D Allan,53,888324,(1),22,6,b,, C  bf
+16,Southwell,10,Big Narstie (FR),9-1,M Appleby,Harry Davies,52,600076,(9),22,5,,, C  
+16,Southwell,11,Maurices Men,8-11,Jane Chapple-Hyam,Benoit D L Sayette,49,8594,(6),22,3,,,   
+16,Southwell,12,Broomy Law,8-9,S Dixon,K T O'Neill,46,890700,(5),2,5,b,,   
+17,Southwell,1,On The Cards (FR),9-7,M P Tregoning,D C Costello,-,72,(2),34,3,,,   
+17,Southwell,2,Leap Day,9-5,T D Easterby,D Allan,71,362543,(5),21,3,,,   
+17,Southwell,3,Gold Aura,9-2,Jack Jones,Dylan Hogan,69,47-2343,(4),22,3,p,,   bf
+17,Southwell,4,Pelissanne (FR),9-2,D Menuisier,Kyle Strydom,-,4,(1),56,3,,,   
+17,Southwell,5,Rocklyn,9-2,S Dixon,Billy Loughnane,-,5,(6),25,3,,,   
+17,Southwell,6,Thelastwinterarrow,9-2,Dylan Cunha,K T O'Neill,-,,(8),,3,,,   
+17,Southwell,7,Teah,9-1,A W Carroll,William Carson,-,56,(3),63,4,,,   
+17,Southwell,8,Catrake Force,9-0,Grant Tuer,S H James,-,29,(7),22,3,,,   
+18,Southwell,1,Green Sigma,9-10,George Boughey,Billy Loughnane,66,533724,(9),23,2,p,,   
+18,Southwell,2,Glistening Nights (FR),9-9,R A Fahey,J Garritty,65,845952,(1),7,2,,,   
+18,Southwell,3,Finn Ironside,9-8,Craig Lidster,S A Gray,64,95992,(2),17,2,,,   
+18,Southwell,4,Likeashadow,9-6,A D Brown,Rowan Scott,62,681134,(8),17,2,,,D   bf
+18,Southwell,5,Jazzy Angel,9-6,Harry Eustace,Hayley Turner,62,9461,(3),17,2,,,  CD 
+18,Southwell,6,Roubay,9-4,David Loughnane,Laura Pearson,60,5070,(7),34,2,,,   
+18,Southwell,7,Polly The Rocket,9-3,Craig Lidster,T Eaves,59,663633,(6),34,2,,,   
+18,Southwell,8,Indication Court,9-3,Craig Lidster,S H James,59,4090,(4),35,2,p1,,   
+18,Southwell,9,Good Morning Alex,8-3,D & N Barron,A J Farragher,45,0875,(5),88,2,,,   
+19,Southwell,1,Aikhal,10-0,J A Osborne,Hayley Turner,98,6568-00,(3),174,4,t,,   
+19,Southwell,2,Mond (GER),9-8,J A Osborne,S W Kelly,92,2155/,(1),845,5,h1,,   
+19,Southwell,3,Diamond Bay,9-8,Tom Ward,P J McDonald,92,315416,(6),107,5,,,D   
+19,Southwell,4,Galactic Jack,9-6,Anthony Charlton,D C Costello,94,6-65610,(2),174 (21J),3,t,,D   
+19,Southwell,5,Zealandia (FR),9-4,Ian Williams,Jack Enright,88,842153,(10),36,6,p,7,D   
+19,Southwell,6,Graphite (FR),9-4,Terry Kent,Billy Loughnane,88,8-85022,(11),20,9,t,,D   
+19,Southwell,7,Oneforthegutter,9-3,Ian Williams,K T O'Neill,87,662643,(9),20,4,p,,D   
+19,Southwell,8,Educator,9-3,M Appleby,Harry Davies,87,323794,(7),84,4,,,   
+19,Southwell,9,Postmark,8-12,Anthony Charlton,Callum Hutchinson,82,0-86003,(4),15,4,t p,3,   
+19,Southwell,10,Furzig,8-11,R A Fahey,Cam Hardie,81,335074,(5),13,8,,,D   
+19,Southwell,11,Heathen,8-10,D O'Meara,Mark Winn,80,086791,(8),17,4,,3,  CD 
+20,Southwell,1,Hiya Maite,9-11,S R Bowring,Lewis Edmunds,87,144522,(11),17,5,,,  CD bf
+20,Southwell,2,Above (FR),9-8,R M H Cowell,Billy Loughnane,84,581050,(3),17,6,t p,,D   
+20,Southwell,3,Strong Johnson,9-7,P T Midgley,P J McDonald,83,081626,(8),17,7,,,D   
+20,Southwell,4,Crimson Sand,9-5,Simon Earle,Aidan Keeley,81,920633,(5),17,5,p,3,D   
+20,Southwell,5,Simple Man,9-3,H Candy,T E Whelan,79,17-205,(2),88,3,,,D   
+20,Southwell,6,Conquistador,9-2,S C Williams,Luke Catton,78,758478,(10),17,3,,5,D   bf
+20,Southwell,7,Rose King,8-11,S Dixon,Phil Dennis,73,834242,(9),7,3,,,  CD 
+20,Southwell,8,Captain's Bar,8-11,S Dixon,K T O'Neill,73,190631,(1),7,4,(ex5) b,,  CD 
+20,Southwell,9,Zargun (GER),8-8,S Dixon,Elisha Whittington,70,70-0009,(7),7,8,,5,D   
+20,Southwell,10,Stone Of Destiny,8-7,M Appleby,Joanna Mason,69,236414,(6),7,8,,,  CD 
+20,Southwell,11,Honour Your Dreams (FR),8-6,Adrian Keatley,J Quinn,68,852926,(4),8,3,v,,D   
+21,Southwell,1,Dark Side Thunder,9-11,Jessica Macey,Lewis Edmunds,77,352315,(4),16,4,p,,  CD bf
+21,Southwell,2,Topo Chico,9-10,David Loughnane,Laura Pearson,76,291145,(6),16,3,,,D   
+21,Southwell,3,Beelzebub,9-9,Alice Haynes,K T O'Neill,75,304656,(11),78,3,t1,,D   
+21,Southwell,4,Razzam,9-9,M Appleby,Alistair Rawlinson,75,123773,(2),44,3,,,   
+21,Southwell,5,Magical Max,9-8,Ivan Furtado,T Eaves,74,106025,(8),21,6,t,,D   
+21,Southwell,6,Airshow,9-7,B R Millman,Oliver Searle,73,233205,(10),88,8,h,7,  CD 
+21,Southwell,7,Tyke,9-7,M Appleby,Callum Hutchinson,73,388102,(1),8,3,,3,  CD 
+21,Southwell,8,Snash,9-5,T D Easterby,D Allan,71,579101,(7),17,5,p,,  CD 
+21,Southwell,9,Nammos,9-5,Jane Chapple-Hyam,Benoit D L Sayette,71,220-6,(3),16,3,,,   
+21,Southwell,10,Jeans Maite,9-2,S R Bowring,Ben Sanderson,68,404263,(12),17,7,,3, C  
+21,Southwell,11,Wee Fat Mac,9-1,I Jardine,A Mullen,67,740411,(9),13,4,t,,D   
+21,Southwell,12,Water Of Leith,8-10,J S Goldie,Mark Winn,62,667461,(5),8,5,(ex5) ,3,D C  
+22,Southwell,1,Cloud Cuckoo,9-12,H Candy,T E Whelan,53,53-80,(11),227,4,,,   
+22,Southwell,2,Elizabeth's Joy,9-12,Mrs A Duffield,D Allan,55,5340,(6),35,3,,,   
+22,Southwell,3,Smasher,9-12,M J Attwater,Paddy Bradley,53,632632,(3),18,3,,3,   
+22,Southwell,4,Tantastic,9-12,T Coyle,T Eaves,47,952465,(1),177,5,,, C  
+22,Southwell,5,Toptime,9-12,S R Bowring,Lewis Edmunds,48,8-70008,(7),84,5,,,  CD 
+22,Southwell,6,Wrath Of Hector,9-12,Jessica Macey,Ben Sanderson,47,222556,(2),123,6,,3,D C  
+22,Southwell,7,Rusheen Boy,9-1,Miss J Feilden,Dylan Hogan,65,0601,(9),7,2,t h,,  CD 
+22,Southwell,8,Amroon,8-9,M Botti,Harry Davies,55,024516,(10),24,2,t,,D   
+22,Southwell,9,Dash Power,8-9,D C Griffiths,K T O'Neill,46,706860,(5),7,2,p1,,   
+22,Southwell,10,Falmouth Boy,8-9,A W Carroll,Molly Gunn,54,5970,(12),22,2,,7,   
+22,Southwell,11,Nassau Bay,8-9,Ivan Furtado,Cam Hardie,53,9960,(4),24,2,p1,,   
+22,Southwell,12,Nevzilla,8-9,Craig Lidster,William Pyle,44,860,(8),135,2,,5,   
+23,Leopardstown,1,Temptationinmilan,11-12,C Byrnes,R J Condon,119,U134-0P,,13,7,p,2,   
+23,Leopardstown,2,Paidi's Passion,11-11,D M Christie,C P Millar,118,201115,,49,7,,4,D   
+23,Leopardstown,3,Archies Charm,11-9,B R Hamilton,T P Harney,116,45-6345,,29,8,b1,4,   
+23,Leopardstown,4,Jacksons Gold,11-9,Ms Curran,J G Gilligan,116,555-908,,33,9,,4,   
+23,Leopardstown,5,Serenity Grove,11-9,Gearoid O'loughlin,C Brassil,116,035PP-4,,40,7,t,,   
+23,Leopardstown,6,Sweet Will,11-7,Emmet Mullins,Conor Clarke,114,U1P-PP2,,27,6,t h,4,D   
+23,Leopardstown,7,Harvey's Quay,11-6,E J O'Grady,A P Kelly,113,4-94019,,48,7,,2,   
+23,Leopardstown,8,Hazelhatch Lady,11-4,James A Fahey,C D Smithers,111,11355P,,50,6,,4,D   
+23,Leopardstown,9,Steppenwolf (FR),11-4,G P Cromwell,P M O'Brien,111,7PF6U3,,23,5,,4,   
+23,Leopardstown,10,Broken Ice,11-3,G P Cromwell,K E Buckley,110,407542,,35,7,,,D   bf
+23,Leopardstown,11,Galon De Vauzelle (FR),11-2,P J Rothwell,P J O'Hanlon,109,2-323PP,,41,7,b1,,D   
+23,Leopardstown,12,Lake Chad,11-1,P Fenton,Niall Moore,108,624232,,36,8,,4,D   
+23,Leopardstown,13,Quite Incredible,10-13,Dermot McLoughlin,M J Molloy,106,08-P4P7,,29,7,,4,   
+23,Leopardstown,14,Soloman Lane,10-12,Martin Hassett,L A McKenna,105,17P6-30,,48,8,,2,   
+23,Leopardstown,15,Nephin Beg,10-9,Sean Doyle,D J Gilligan,102,9F-0563,,31,5,,2,   
+23,Leopardstown,16,Squire Ohara,10-2,A J Martin,J Coen,95,70605P,,48,5,,,   
+24,Leopardstown,1,Apple's Of Bresil (FR),11-12,Barry Connell,M J M O'Sullivan,-,7-3,,41,5,,,   
+24,Leopardstown,2,Ballyburn,11-12,W P Mullins,P Townend,-,111-2,,27,5,,,   bf
+24,Leopardstown,3,Cleatus Poolaw,11-12,G Elliott,J W Kennedy,-,21-22,,29,5,,,   
+24,Leopardstown,4,Cloughroe,11-12,P J Gilligan,D J Gilligan,-,430,,47,5,,5,   
+24,Leopardstown,5,Coming Up Easy,11-12,H de Bromhead,Rachael Blackmore,-,3/6-7,,41,5,t1,,   
+24,Leopardstown,6,Ebony Jade,11-12,J P Dempsey,K M Donoghue,-,400,,20,5,,,   
+24,Leopardstown,7,Laurie Blue,11-5,E D Delany,D J O'Keeffe,-,2/,,628,5,,,   
+24,Leopardstown,8,Saddle Her Up,11-5,Barry J Fitzgerald,S Cleary-Farrell,-,98/2,,61,5,,7,   
+24,Leopardstown,9,Tell Me This,11-5,Nina Walsh,P J Carberry,-,FF-F,,68,5,,,   
+25,Leopardstown,1,Magical Zoe,11-3,H de Bromhead,A P Heskin,136,1125-12,,49,5,,,   
+25,Leopardstown,2,Risk Belle (FR),11-3,W P Mullins,M P Walsh,137,4F316-1,,27,4,,,   
+25,Leopardstown,3,Space Tourist,11-3,W P Mullins,B Hayes,-,3-11821,,69,6,,,   
+25,Leopardstown,4,Double Pink,11-0,Daniel G Murphy,M J M O'Sullivan,115,C61-621,,42,6,h,,D   
+25,Leopardstown,5,Hispanic Moon (FR),11-0,H de Bromhead,D J O'Keeffe,137,18216-1,,33,6,,,D   
+25,Leopardstown,6,Jetara,11-0,Mrs J Harrington,J W Kennedy,135,20P-811,,17,5,,,D   
+25,Leopardstown,7,Pink In The Park,11-0,W P Mullins,D E Mullins,125,3-11345,,12,6,,,   
+25,Leopardstown,8,Saylavee,11-0,W P Mullins,P Townend,135,51500-2,,33,6,,,D   
+25,Leopardstown,9,Anna Bunina (FR),10-11,J C McConnell,D A Jacob,139,932-640,,26,7,t,,   
+25,Leopardstown,10,Telmesomethinggirl,10-11,H de Bromhead,Rachael Blackmore,142,F212F-3,,228,8,,,D   
+26,Leopardstown,1,Corbetts Cross,11-10,Emmet Mullins,M P Walsh,-,111R-31,,27,6,,,D   
+26,Leopardstown,2,Favori De Champdou (FR),11-10,G Elliott,J W Kennedy,-,11P4-21,,34,8,,,D   
+26,Leopardstown,3,Flanking Maneuver,11-10,N Meade,M J M O'Sullivan,-,214/33-1,,83,8,,,   
+26,Leopardstown,4,Flooring Porter,11-10,G P Cromwell,K M Donoghue,-,443-913,,34,8,t,,D C  
+26,Leopardstown,5,Grangeclare West,11-10,W P Mullins,P Townend,-,1/1561-1,,47,7,,,   
+26,Leopardstown,6,Tullyhogue Fort,11-10,J F O'Neill,Mr P J O'Neill,95,252457,,12,7,,,D   
+27,Leopardstown,1,Fils D'oudairies (FR),11-12,G Elliott,J W Kennedy,148,F11013,,34,8,,,D C  
+27,Leopardstown,2,Impaire Et Passe (FR),11-12,W P Mullins,D A Jacob,160,1/1111-2,,26,5,,,D   bf
+27,Leopardstown,3,State Man (FR),11-12,W P Mullins,P Townend,166,11121-1,,34,6,,,  CD 
+27,Leopardstown,4,Echoes In Rain (FR),11-5,W P Mullins,D E Mullins,153,2F141-2,,34,7,t,,D   
+28,Leopardstown,1,Sequestered,12-0,P J Gilligan,J G Gilligan,130,541216,,42,5,,7,D   
+28,Leopardstown,2,Yeats Star,11-13,G Elliott,D J Gilligan,129,443211,,34,4,,5,   
+28,Leopardstown,3,Barry Lyndon,11-7,Dermot McLoughlin,C D Maxwell,123,125,,148,5,,,   
+28,Leopardstown,4,Sportinthepark,11-7,N Meade,Rachael Blackmore,123,2-510,,27,4,h,,D   
+28,Leopardstown,5,Waterford Whispers,11-7,H de Bromhead,M P Walsh,123,7-11,,27,5,,,D   
+28,Leopardstown,6,Western Fold,11-7,G Elliott,J W Kennedy,123,3-3U15,,27,4,,,   
+28,Leopardstown,7,Mount Sinai,11-5,W P Mullins,P Townend,121,3315,,17,5,,,D   
+28,Leopardstown,8,Ochocinco,11-0,Colm A Murphy,L A McKenna,116,140,,27,5,,5,D   
+28,Leopardstown,9,Champagne Admiral,10-13,P A Fahy,M J M O'Sullivan,115,475-321,,38,5,,,   
+28,Leopardstown,10,Petit King (FR),10-10,E Cawley,J J Slevin,112,043-551,,17,7,,,D   
+28,Leopardstown,11,Quarry Rocco,10-9,P J Rothwell,D J O'Keeffe,111,1-04158,,48,5,,,   
+28,Leopardstown,12,Linden Arden,10-7,W P Mullins,B Hayes,109,85825-,,255,5,,,   
+28,Leopardstown,13,Must Go Now,10-0,E Cawley,S F O'Keeffe,102,600-3,,36,6,,,   
+29,Leopardstown,1,Big Dee,12-0,E McCarthy,Mr J C Barry,-,21,,48,4,,3,D   
+29,Leopardstown,2,Glowing Account (FR),12-0,W P Mullins,Miss J Townend,-,14,,75,6,,,D   bf
+29,Leopardstown,3,Jalon D'oudairies (FR),12-0,G Elliott,Mr H C Swan,-,1-1,,27,4,,5,D   
+29,Leopardstown,4,Luckinthecity,12-0,W P Mullins,Mr C Mullins,-,1,,102,4,,7,D   
+29,Leopardstown,5,Redemption Day,12-0,W P Mullins,Mr P W Mullins,126,10/2-,,611,6,,,  CD 
+29,Leopardstown,6,The Passing Wife,12-0,G P Cromwell,Mr D G Lavery,-,1-41,,33,4,,,D   
+29,Leopardstown,7,Eastbank Warrior,11-7,Jonathan Sweeney,Mr R W Barron,-,F,,236,5,,5,   
+29,Leopardstown,8,Garswood Gold,11-7,P J Gilligan,Mr J H Williamson,-,,,,4,,7,   
+29,Leopardstown,9,Ma Belle Etoile,11-7,J & T Kiely,Mr J L Gleeson,-,231,,38,4,,5,D   
+29,Leopardstown,10,Switch From Diesel,11-7,S Fahey,Mr T Hamilton,-,221,,89,4,,,D   
+30,Limerick,1,Ex Patriot,11-12,Ellmarie Holden,H Morgan,123,4940/P6,,13,10,,, C  
+30,Limerick,2,The Dabbler,11-5,L P Cusack,K Callaghan,116,846PP3,,12,10,p,5,D   
+30,Limerick,3,Fiveaftermidnight,10-12,P J Rothwell,S D Torrens,109,B74-904,,95,10,b,,D   
+30,Limerick,4,Space Cadet,10-9,Gearoid O'loughlin,R A Doyle,106,U39-P65,,27,13,b,,   
+30,Limerick,5,R'evelyn Pleasure,10-8,S O O'Brien,M M McDonagh,105,9646-74,,12,11,,3,   
+31,Limerick,1,Rolly Bowley Boy,12-0,Ciaran M Murphy,E Walsh,109,4F6-323,,3,6,v,,   
+31,Limerick,2,Baldur's Gate,11-11,Miss O'Shea,S W Flanagan,106,3523-P1,,43,8,,,   
+31,Limerick,3,Dr Val,11-4,E Sheehy,G Brouder,99,1546-66,,33,5,p,5,   
+31,Limerick,4,Evies Vladimir,11-4,G P Cromwell,C Stone-Walsh,99,69B6-12,,3,6,,5,   bf
+31,Limerick,5,Hot As Pepper,11-1,J C McConnell,B W Harvey,96,1-955P0,,31,7,t,,   
+31,Limerick,6,Bushmans Pass,10-12,O McKiernan,P T Enright,93,410-599,,34,7,,,   
+31,Limerick,7,Lady Kate,10-12,R Hackett,S D Torrens,93,6-03062,,12,6,,,   
+31,Limerick,8,Soldier Of Honour,10-12,E McCarthy,G B Noonan,93,33-678,,36,6,t1 p1,5,   
+31,Limerick,9,Da Big Fella,10-4,Eamon Courtney,Sam Ewing,85,5304-2P,,43,9,t,,   
+31,Limerick,10,Seangoell,10-4,Norman Lee,S O'Callaghan,85,75864-0,,17,9,t p,5,D C  
+31,Limerick,11,Starlight Cato,10-3,Daniel Howard,D King,84,2P3F-70,,36,6,,3,   
+31,Limerick,12,Mrs Watson,10-2,Peter Croke,C P McNamara,83,70P9-78,,68,9,,,   
+31,Limerick,13,Will It Be You,10-1,L P Cusack,R Deegan,82,0-7828P,,31,6,,,   
+32,Limerick,1,Sir Allen,11-12,A Slattery,Mr A P Ryan,124,1104-50,,26,4,,7,D   
+32,Limerick,2,Media Naranja,11-11,G Elliott,Sam Ewing,123,13-1235,,26,4,,,  CD 
+32,Limerick,3,Morning Soldier,11-6,T Mullins,J B Foley,118,2-35P40,,26,4,t1,,   
+32,Limerick,4,Luminous Light,11-4,Anthony McCann,S W Flanagan,116,441-U23,,27,4,h,,D   
+32,Limerick,5,Whimsy,11-4,Anthony McCann,J P O'Sullivan,116,/-232,,17,4,,3,   
+32,Limerick,6,Paradise Lost,11-2,C O'Brien,S D Torrens,114,242-2,,29,4,,,   
+32,Limerick,7,Your Honor,11-2,J A Nash,G Brouder,114,47-3756,,12,4,,5,  CD 
+32,Limerick,8,Action Motion,11-1,Denis Hogan,D King,113,140P-85,,17,4,t,3,D   
+32,Limerick,9,Mercury Mission,10-11,M J O'Connor,S Fitzgerald,109,-2338,,102,4,,,   
+32,Limerick,10,Ossie's Lodge,10-10,A J Martin,P T Enright,108,83-188,,20,4,,,D   
+33,Limerick,1,Splashing Out,12-0,E Griffin,P T Smithers,116,450-441,,38,5,p,7,  CD 
+33,Limerick,2,The Shantou King,12-0,Aengus King,P T Enright,116,45271P,,54,6,t p,,D   
+33,Limerick,3,She's A Fine Wine,11-12,H de Bromhead,M P O'Connor,114,210-13,,41,5,,3,  CD 
+33,Limerick,4,Rockview Consort,11-10,J C McConnell,B W Harvey,112,-1246,,12,4,,,D   
+33,Limerick,5,Ages Of Man,11-8,Anthony McCann,S W Flanagan,110,64026-8,,34 (21F),5,p,,   
+33,Limerick,6,Clodders Dream,11-8,G Elliott,Sam Ewing,110,04244-0,,47,5,,,   
+33,Limerick,7,Starman (FR),11-7,Anthony McCann,J P O'Sullivan,109,152260,,27,7,h,3,D   
+33,Limerick,8,Ask The Bookie,11-6,Gillian Scott,D King,-,P2/0-43,,38,6,,3,   
+34,Limerick,1,Iceberg Theory,11-12,P Nolan,S W Flanagan,-,30-32,,42,4,,,   
+34,Limerick,2,Metalor,11-12,L P Cusack,R Deegan,-,1-02,,35,6,,,   
+34,Limerick,3,Now Is The Hour,11-12,G P Cromwell,C Stone-Walsh,-,12-89,,98,6,,5,   
+34,Limerick,4,Western Express,11-12,R O'Leary,R A Doyle,-,P9,,57,6,,,   
+34,Limerick,5,La Vega Moon,11-10,J J Hanlon,J S McGarvey,-,3U-11P,,54,5,p1,,   
+34,Limerick,6,Magic Sadler,11-10,Ciaran M Murphy,E Walsh,-,7214-44,,22,5,,,   
+34,Limerick,7,Mount Frisco,11-10,J P Ryan,P K Donovan,100,589455,,3,4,,5,   
+34,Limerick,8,Diduhearabourichie,11-8,J M Burke,D King,-,,,,6,,3,   
+34,Limerick,9,Kilbride Hill,11-8,J P Ryan,L Quinlan,-,F-7,,12,5,,5,   
+34,Limerick,10,On Lovers Walk,11-8,G Kelleher,S O'Callaghan,-,411-32P,,22,6,t1,5,   
+34,Limerick,11,Thegraveyardbookie,11-8,E McNamara,C P McNamara,-,364,,62,4,,,   
+35,Limerick,1,Balally Park,11-12,T Cooper,D Meyler,-,6-U04,,42,4,,,   
+35,Limerick,2,Carlas Big Jim,11-12,L J Archdeacon,Mr C J Shine,83,80-P995,,22,5,,7,   
+35,Limerick,3,Doonbeg Don,11-12,H de Bromhead,M P O'Connor,-,26-64,,33,5,,3,   
+35,Limerick,4,Downtheoldbogroad,11-12,M Hourigan,R P Treacy,-,4/7-07,,22,5,,,   
+35,Limerick,5,Jeronimo De L'ouch (FR),11-12,Michael G Kennedy,J Coen,-,08-84,,15,4,,5,   
+35,Limerick,6,Le Fanu,11-12,Brendan Maurice Walsh,P T Enright,-,745F-9,,29,7,,,   
+35,Limerick,7,Marciano,11-12,E J O'Grady,J S McGarvey,-,5-R4,,229,5,,,   
+35,Limerick,8,Midweek Voices,11-12,E Doyle,C Brassil,-,0-540,,19,4,,5,   
+35,Limerick,9,Rodney,11-12,J J Hanlon,Shane Fenelon,-,866,,15,4,p,7,   
+35,Limerick,10,Aghmorough Bridge,11-5,W P Murphy,S D Torrens,-,113-430,,42,7,,,   
+35,Limerick,11,Caughtinaspell,11-5,Michael G Kennedy,Mr B Barry,-,4F-8964,,22,5,,7,   
+35,Limerick,12,Day's A Dawning,11-5,G Elliott,Sam Ewing,-,860,,61,4,,,   
+35,Limerick,13,Double Dating,11-5,G Elliott,B Le Clerc,88,8909-67,,38,5,,,   
+35,Limerick,14,Imperial Fox,11-5,Padraig Butler,S W Flanagan,-,21-1600,,36,5,,,   
+35,Limerick,15,Janverlil,11-5,E McNamara,C P McNamara,80,80P-008,,169,5,t,,   
+35,Limerick,16,Ma Hoey,11-5,E McCarthy,G B Noonan,-,2172-35,,222,7,t,5,   
+35,Limerick,17,Meoulflower,11-5,P Cluskey,Thomas Reilly,-,-F00,,20,4,,7,   
+35,Limerick,18,Silverfort Lady,11-5,J M Burke,Niall Moore,-,0-0P9,,15,4,,7,   
+35,Limerick,19,Ashdale Flyer,11-5,Mrs J Harrington,Reserve 1,-,698,,15,4,p1,,   
+36,Limerick,1,Johngus,12-7,S Aherne,Mr S Tobin,102,40317-1,,2,9,(ex7),7, C  
+36,Limerick,2,Idol (FR),11-9,S Curling,P T Enright,97,1-048,,57,5,,,   
+36,Limerick,3,Maid In Manhattan,11-9,Darren Collins,P J O'Hanlon,97,62FR00/,,990 (978F),9,,3,   
+36,Limerick,4,Natural Breeze,11-4,P J Rothwell,C Owens,92,832244,,22,8,b1,7,D   
+36,Limerick,5,St Denis's Well,11-4,Ian Donoghue,Caragh Monaghan,92,049P-14,,3,5,t,7,   
+36,Limerick,6,Young Fitzy,11-3,Norman Lee,R P Geoghegan,91,4-66036,,15,8,t p,7,   
+36,Limerick,7,Another Ocana,11-2,L J Archdeacon,E Walsh,90,336-506,,38,6,,,   
+36,Limerick,8,Fireworks (FR),10-13,J J Hanlon,Sam Ewing,87,0-9P800,,121,5,,,   
+36,Limerick,9,Imbolc,10-13,E Sheehy,S W Flanagan,87,P-4709,,15,5,,,   
+36,Limerick,10,The Flying Donkey,10-13,James Dullea,J S McGarvey,87,0604,,31,5,,,   
+36,Limerick,11,Askwell,10-12,E McNamara,C P McNamara,86,0080,,29,4,,,   
+36,Limerick,12,I'm For Home,10-12,R K Watson,D Meyler,86,700-880,,17,5,,,   
+36,Limerick,13,Thelonglad,10-12,M J McDonagh,P K Donovan,86,0000-40,,19,5,,5,   
+36,Limerick,14,Five Minutes More,10-11,R Tyner,R P Treacy,85,0000,,48,5,,,   
+36,Limerick,15,A Nod To Getaway,10-9,Paul O'Flynn,S C Cronin,83,F3/9890-,,532,6,t1,5,   
+36,Limerick,16,Whiskey Lady,10-9,Gillian Scott,D King,83,70084-7,,31,6,b,3,   
+36,Limerick,17,Kate Ill Know,10-7,D K Budds,Shane Fenelon,81,8/637-67,,22,10,,7,   
+36,Limerick,18,Legacy Of Dreams (FR),10-6,P J Rothwell,S D Torrens,80,0P6-1P5,,50,8,,,D C  
+36,Limerick,19,Added Bonus,10-6,Brendan Maurice Walsh,Reserve 1,80,577290,,31,9,t p,,   
+36,Limerick,20,Eddies Pride,10-6,Norman Lee,Reserve 2,80,5127-63,,22,9,t h,,   
