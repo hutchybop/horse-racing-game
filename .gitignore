@@ -1,5 +1,6 @@
 .env
 race/
+race_env/
 push.sh
 pull-push.sh
 __pycache__/
