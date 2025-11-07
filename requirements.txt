@@ -8,6 +8,8 @@ pydantic
 pymongo
 playwright   # see notes below
 python-dotenv
+Flask
+pymongo
 
 
 # For playwright on server:

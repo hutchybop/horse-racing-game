@@ -1,0 +1,13 @@
+body { 
+    background: url('../images/horse.jpeg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.card-header {
+    background-color: #cceeff;
+}
+li:nth-child(2n) {
+    background-color: #ffcccc;
+}

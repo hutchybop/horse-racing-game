@@ -1,0 +1,76 @@
+{% extends "layouts/boilerplate.html" %}
+
+{% block head_content %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+
+
+<div class="container-fluid mt-3">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h4 id="gameTitle">Horse Racing Game</h4>
+                    {% if game_tracker != 0 %}
+                        <p>A game is already in progress on Race number: <strong>{{ game_tracker }}</strong></p>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if game_tracker != 0 %}
+                        <a class="btn btn-success mb-2" href="{{ url_for('race_control.hrg') }}">Continue Game</a><br>
+                    {% endif %}
+                    <a class="btn btn-primary" href="{{ url_for('race_control.game_config') }}">Start New Game</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container mt-3 mb-3">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 id="rules">Rules</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Each person starts with £100.00!</li>
+                    <li class="list-group-item">Total of 10 races</li>
+                    <li class="list-group-item">Minimum bet is £1.00</li>
+                    <li class="list-group-item">Winnings given to the nearest £1.00 (e.g £2.35 = £2.00 or £5.50 = £6.00)</li>
+                    <li class="list-group-item">Winning bets will return the original stake as well as the winnings</li>
+                    <li class="list-group-item">Bet on as many horses as you like</li>
+                    <li class="list-group-item"><strong>Have the most money at the end to win!</strong></li>
+                    <li class="list-group-item">Integrity is important to the game! <strong>Do not cheat</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 id="tips">Tips</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Take a note of the horse number</li>
+                    <li class="list-group-item">Look at all the stats</li>
+                    <li class="list-group-item">Don't leave all your betting untill the last race, it might be too late by then</li>
+                    <li class="list-group-item">Take note of the race distance (miles and furlongs)</li>
+                    <li class="list-group-item">Odds are decimal:- e.g 6 = 6/1 or 2.5 = 5/2</li>
+                    <li class="list-group-item">Basically £1 will return whatever the odds say. So odds of 3.5 will return £3.50 per pound bet</li>
+                    <li class="list-group-item">Odd are given as the starting price</li>
+                    <li class="list-group-item">If a horse has no odds it means it didn't start</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

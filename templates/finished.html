@@ -1,0 +1,25 @@
+{% extends "layouts/boilerplate.html" %}
+
+{% block main_content %}
+
+<div class="container-fluid mt-3">
+  <div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card text-center">
+            <div class="card-header">
+                <h3>Game Finished</h3>
+            </div>
+            <div class="card-body">
+                <h4>Hope you had fun!!</h4>
+                <h5>I told my horse about my betting losses. He said, ‘Neigh more excuses.’</h5>
+            </div>
+            <div>
+                <a href="{{ url_for('race_control.index') }}" class="btn btn-primary btn-lg mb-3">Back to Start</a>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

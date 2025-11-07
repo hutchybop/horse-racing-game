@@ -1,0 +1,149 @@
+{% extends "layouts/boilerplate.html" %}
+
+{% block head_content %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hrg.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+
+<div id="info">
+    <div class="container mt-2 mb-2">
+        <div class="row">
+            <div class="col-12 card p-0">
+                <div>
+                    <div class="card-header" id="raceInfoHeader">
+                        <h5 id="raceTitle">Race Title: <span id="title">{{ current_race["title"] }}</span></h5>
+                    </div>
+                    <div class="card-body d-flex justify-content-between align-items-center" id="raceInfoBody">
+                        <p class="mt-0 mb-0">Results for Race #: <span id="game_race_num">{{ game_tracker }}</span></p>
+                        <p class="mt-0 mb-0">Course: <span id="course">{{ current_race["course"] }}</span></p>
+                        <p class="mt-0 mb-0">Date/Time: <span id="date">{{ current_race["date"] }}</span></p>
+                        <p class="mt-0 mb-0">Distance: <span id="distance">{{ current_race["distance"] }}</span></p>
+                        {% if game_tracker == 10 %}
+                        <a href="{{ url_for('race_control.game_config') }}" class="btn btn-danger btn-sm">Finish Game</a>
+                        {% else %}
+                        <a href="{{ url_for('race_control.game_config') }}" class="btn btn-success btn-sm">Next Race</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row" id="horses">
+        {% for horse in current_race.horses %}
+        {% if horse.position == "1" %}
+        <div class="col-4 mb-2">
+            <div class="card cardCol">
+                <div class="card-header">
+                    <h3>{{ horse.position }}st Position</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h5 class="d-inline">Horse: </h5>
+                        <span class="horse-name">{{ horse.name }}</span>
+                    </li>
+                    <li class="list-group-item">
+                    <h5 class="d-inline">Horse Number: </h5>
+                        <span class="horse-name">{{ horse.number }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="d-inline">Odds: </h5>
+                        <span class="horse-name">{{ horse.sp }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% if horse.position == "2" %}
+        <div class="col-4 mb-2">
+            <div class="card cardCol">
+                <div class="card-header">
+                    <h3>{{ horse.position }}nd Position</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h5 class="d-inline">Horse: </h5>
+                        <span class="horse-name">{{ horse.name }}</span>
+                    </li>
+                    <li class="list-group-item">
+                    <h5 class="d-inline">Horse Number: </h5>
+                        <span class="horse-name">{{ horse.number }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="d-inline">Odds: </h5>
+                        <span class="horse-name">{{ horse.sp }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% if horse.position == "3" %}
+        <div class="col-4 mb-2">
+            <div class="card cardCol">
+                <div class="card-header">
+                    <h3>{{ horse.position }}rd Position</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h5 class="d-inline">Horse: </h5>
+                        <span class="horse-name">{{ horse.name }}</span>
+                    </li>
+                    <li class="list-group-item">
+                    <h5 class="d-inline">Horse Number: </h5>
+                        <span class="horse-name">{{ horse.number }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="d-inline">Odds: </h5>
+                        <span class="horse-name">{{ horse.sp }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="container-fluid mt-3">
+  <div class="row justify-content-center">
+    {% for horse in current_race.horses %}
+    {% if horse.position == "1" %}
+    <div class="col-6">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3>1st Position - Returns Calculator</h3>
+        </div>
+        <div class="card-body">
+          <h4>{{ horse.name }}</h4>
+          <p>Odds: {{ horse.sp }}</p>
+
+          <div class="mb-3 mt-3">
+            <label for="betAmount" class="form-label">Your Bet (£)</label>
+            <input type="number" class="form-control" id="betAmount" min="1" step="1" placeholder="Enter bet amount">
+          </div>
+
+          <!-- Store odds in data- attribute -->
+          <button class="btn btn-primary" id="calculateBtn" data-odds="{{ horse.sp }}">Calculate Returns</button>
+
+          <div class="mt-3 p-3 border rounded bg-light" id="returnsBox" style="display:none;">
+            <h5>Your Returns (to the nearest pound):</h5>
+            <p id="returnsAmount" class="fs-4 fw-bold">£0.00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block script_content %} 
+<script src="{{ url_for('static', filename='java/race_result.js') }}"></script>
+{% endblock %}

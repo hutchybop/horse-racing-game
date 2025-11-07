@@ -1,0 +1,55 @@
+{% extends "layouts/boilerplate.html" %}
+
+{% block head_content %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hrg.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+
+
+<div class="container mt-2 mb-2">
+    <div class="row">
+        <div class="col-12 p-0">
+            <div class="card">
+                <div class="card-header" id="raceInfoHeader">
+                    <h5 id="raceTitle">Race Title: <span id="title">{{ current_race["title"] }}</span></h5>
+                </div>
+                <div class="card-body d-flex justify-content-between align-items-center" id="raceInfoBody">
+                    <p class="mt-0 mb-0">Game Race #: <span id="game_race_num">{{ game_tracker }}</span></p>
+                    <p class="mt-0 mb-0">Course: <span id="course">{{ current_race["course"] }}</span></p>
+                    <p class="mt-0 mb-0">Date/Time: <span id="date">{{ current_race["date"] }}</span></p>
+                    <p class="mt-0 mb-0">Distance: <span id="distance">{{ current_race["distance"] }}</span></p>
+                    <a href="{{ current_race['racing_tv_url'] }}" class="btn btn-primary btn-sm">Replay</a>
+                    <a href="{{ url_for('race_control.race_result') }}" class="btn btn-danger btn-sm">Result</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        {% for horse in current_race.horses %}
+        <div class="col-3 mb-2">
+            <div class="card cardCol">
+                <div class="card-header">
+                    <h4 class="d-inline">Horse: </h4>
+                    <span class="horse-name">{{ horse.name }}</span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Age: {{ horse.age }}</li>
+                    <li class="list-group-item">Weight (S-P): {{ horse.weight }}</li>
+                    <li class="list-group-item">Horse Number: {{ horse.number }}</li>
+                    <li class="list-group-item">Last Ran (Days): {{ horse.last_ran_days_ago }}</li>
+                    <li class="list-group-item">Form: {{ horse.form }}</li>
+                    <li class="list-group-item">Odds: {{ horse.sp }}</li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+#raceInfoHeader, #raceInfoBody {
+    padding: 0.45em;
+}
+#raceTitle {
+    font-weight: 600;
+}
+#game_race_num, #title, #course, #date, #distance, .horse-name {
+    color: #660000;
+}
+.horse-name {
+    font-size: 1.2rem; 
+    font-weight: normal;
+}
