@@ -1,6 +1,5 @@
 .env
-get_races/race_env
-race_env/
+hrg_env/
 push.sh
 pull-push.sh
 __pycache__/
