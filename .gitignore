@@ -1,6 +1,7 @@
 .env
 race/
 push.sh
+pull-push.sh
 __pycache__/
 *.pyc
 *.pyo
