@@ -422,13 +422,13 @@ if __name__ == "__main__":
                         except RateLimitError as e:
                             current_key_index += 1
                             if current_key_index < len(API_KEYS):
-                                logger.error(f"Rate limit reached for API_KEY_{current_key_index}")
-                                logger.error(f"API Requests left for Key: {e.api_calls}")
-                                logger.error(f"API key will reset at: {e.reset_time}")
+                                logger.api(f"Rate limit reached for API_KEY_{current_key_index}")
+                                logger.api(f"API Requests left for Key: {e.api_calls}")
+                                logger.api(f"API key will reset at: {e.reset_time}")
                                 logger.warning("Trying next key, if there is one...")
                                 continue
-                            logger.error(f"API Requests left for Key: {e.api_calls}")
-                            logger.error(f"API key will reset at: {e.reset_time}")
+                            logger.api(f"API Requests left for Key: {e.api_calls}")
+                            logger.api(f"API key will reset at: {e.reset_time}")
                             logger.critical(e.message)
                             raise SystemExit(1)
                         except Exception as e:
@@ -509,13 +509,13 @@ if __name__ == "__main__":
                 except RateLimitError as e:
                     current_key_index += 1
                     if current_key_index < len(API_KEYS):
-                        logger.error(f"Rate limit reached for API_KEY_{current_key_index+1}")
-                        logger.error(f"API Requests left for Key: {e.api_calls}")
-                        logger.error(f"API key will reset at: {e.reset_time}")
-                        logger.error("Trying next key, if there is one...")
+                        logger.api(f"Rate limit reached for API_KEY_{current_key_index}")
+                        logger.api(f"API Requests left for Key: {e.api_calls}")
+                        logger.api(f"API key will reset at: {e.reset_time}")
+                        logger.warning("Trying next key, if there is one...")
                         continue
-                    logger.error(f"API Requests left for Key: {e.api_calls}")
-                    logger.error(f"API key will reset at: {e.reset_time}")
+                    logger.api(f"API Requests left for Key: {e.api_calls}")
+                    logger.api(f"API key will reset at: {e.reset_time}")
                     logger.critical(e.message)
                     raise SystemExit(1)
                 except Exception as e:
