@@ -19,7 +19,7 @@
                     <p class="mt-0 mb-0">Course: <span id="course">{{ current_race["course"] }}</span></p>
                     <p class="mt-0 mb-0">Date/Time: <span id="date">{{ current_race["date"] }}</span></p>
                     <p class="mt-0 mb-0">Distance: <span id="distance">{{ current_race["distance"] }}</span></p>
-                    <a href="{{ current_race['racing_tv_url'] }}" class="btn btn-primary btn-sm">Replay</a>
+                    <a href="{{ current_race['racing_tv_url'] }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">Replay</a>
                     <a href="{{ url_for('race_control.race_result') }}" class="btn btn-danger btn-sm">Result</a>
                 </div>
             </div>
@@ -52,4 +52,8 @@
 </div>
 
 
+{% endblock %}
+
+{% block script_content %} 
+<script src="{{ url_for('static', filename='java/hrg.js') }}"></script>
 {% endblock %}
