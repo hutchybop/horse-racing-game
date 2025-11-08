@@ -48,16 +48,20 @@ def setup_logger():
     logger = logging.getLogger("races_scraper")
     logger.setLevel(numeric_level)
     logger.handlers.clear()  # Ensure no duplicate handlers on reload
+    # Define consistent width for log level column
+    LEVEL_WIDTH = 9  # Long enough to fit the longest level name (e.g., "WARNING")
+    # Define the format with alignment
+    log_format = f"%(asctime)s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(numeric_level)
-    console_format = logging.Formatter(
-        "%(asctime)s - %(levelname)s - %(message)s"
-    )
+    console_format = logging.Formatter(log_format)
     console_handler.setFormatter(console_format)
     # File handler
     if os.getenv("location") == "server":
-        file_handler = logging.FileHandler("/home/hutch/horse-racing-game/races_scraper/races_scraper.log", mode="a")
+        file_handler = logging.FileHandler(
+            "/home/hutch/horse-racing-game/races_scraper/races_scraper.log", mode="a"
+        )
     else:
         file_handler = logging.FileHandler("races_scraper.log", mode="a")
     file_handler.setLevel(numeric_level)
