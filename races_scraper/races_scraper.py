@@ -256,7 +256,7 @@ def is_valid_racingtv_url(race_data, page):
         dt = datetime.strptime(race_date, "%Y-%m-%d %H:%M:%S")
     except (TypeError, ValueError):
         logger.error(f"Invalid date format for race {race_data.get('id_race')}")
-        return False, ""
+        return False, "#"
     # Format date and time parts
     date_str = dt.strftime("%Y-%m-%d")
     time_str = dt.strftime("%H%M")
@@ -275,7 +275,7 @@ def is_valid_racingtv_url(race_data, page):
             page.goto(racingtv_url, timeout=20000)
             # If "Cannot find this race" text appears → invalid
             if page.query_selector("text=Cannot find this race"):
-                return False, ""
+                return False, "#"
             # Check for a valid video element with a 'poster' attribute (only present on working videos)
             video_element = page.query_selector("video[poster]")
             if video_element:
@@ -286,7 +286,7 @@ def is_valid_racingtv_url(race_data, page):
         except TimeoutError:
             logger.warning(f"Attempt {attempt + 1}: timeout fetching video page, retrying...")
             time.sleep(2)
-    return False, ""  # After all retries failed
+    return False, "#"  # After all retries failed
 
 
 def is_correct_num_horses(race_data):
@@ -445,22 +445,18 @@ if __name__ == "__main__":
                         valid_racingtv, racingtv_url = is_valid_racingtv_url(race_data, page)
                         valid_num_horses, num_horses = is_correct_num_horses(race_data)
                         valid_distance = is_two_miles_or_less(race_data)
+                        valid_race, race = build_races_dict(race_data, racingtv_url) # checks all values are present in dict
         
-                        if valid_racingtv and valid_num_horses and valid_distance:
-                            # Validate and build the race dict
-                            valid_race, race = build_races_dict(race_data, racingtv_url)
-                            if valid_race:
-                                # Add race to races collection in db
-                                races_collection.insert_one(race)
-                                ids_added += 1
-                                # Remove race_id from race_ids list in db
-                                race_index_collection.update_one({}, {"$pull": {"race_ids": race_id}})
-                                logger.success(f"{race_id} added to races collection in db")
-                                #  Get number of races in db
-                                race_count = races_collection.count_documents({})
-                                logger.info(f"Total races added to DB so far: {race_count}")
-                            else:
-                                logger.warning(f"{race_id} skipped (missing fields or invalid horses)")
+                        if valid_racingtv and valid_num_horses and valid_distance and valid_race:
+                            # Add race to races collection in db
+                            races_collection.insert_one(race)
+                            ids_added += 1
+                            # Remove race_id from race_ids list in db
+                            race_index_collection.update_one({}, {"$pull": {"race_ids": race_id}})
+                            logger.success(f"{race_id} added to races collection in db")
+                            #  Get number of races in db
+                            race_count = races_collection.count_documents({})
+                            logger.info(f"Total races added to DB so far: {race_count}")
                         else:
                             # Show error if race not valid
                             if not valid_racingtv:
@@ -472,7 +468,10 @@ if __name__ == "__main__":
                                     logger.warning(f"Too many horses ran, race id {race_id} not added")
                             if not valid_distance:
                                 logger.warning(f"Race distance too long, race id {race_id} not added")
+                            if not valid_race:
+                                logger.warning(f"{race_id} skipped (missing fields or invalid horses)")
 
+                            # Remove race_id
                             race_index_collection.update_one({}, {"$pull": {"race_ids": race_id}})
                     
                     # Logs after loop has finished
