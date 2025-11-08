@@ -16,7 +16,7 @@ load_dotenv("../.env")
 
 
 # Logger setup
-# In order: DEBUG < CHECK < INFO < API < SUUCCESS < WARNING < ERROR < CRITICAL
+# In order: DEBUG < INFO < CHECK < API < SUUCCESS < WARNING < ERROR < CRITICAL
 import logging
 import sys
 import os
@@ -24,9 +24,9 @@ import os
 def setup_logger():
     """Setup logger with console + file output, and custom log levels."""
     # Define custom levels
-    CHECK_LEVEL = 25
-    API_LEVEL = 15
-    SUCCESS_LEVEL = 35
+    CHECK_LEVEL = 22
+    API_LEVEL = 25
+    SUCCESS_LEVEL = 28
     logging.addLevelName(CHECK_LEVEL, "CHECK")
     logging.addLevelName(API_LEVEL, "API")
     logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
