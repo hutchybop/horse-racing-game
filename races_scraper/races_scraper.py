@@ -485,7 +485,7 @@ if __name__ == "__main__":
                 else:
                     logger.info("No racing IDs to process, indexing Race IDs for next day")
 
-                
+                logger.info("")  # logs an empty line
 
                 # --------------------------------------Index Race IDs for the Next Date--------------------------------------
                 # Get the date to check
@@ -549,6 +549,8 @@ if __name__ == "__main__":
 
                 logger.info(f"Out of {num_of_races_in_RCD} races, {num_of_races_added} added to race_index")
                 logger.info(f"All valid Race IDs for {race_date} added, now processing Race IDs")
+
+                logger.info("")  # logs an empty line
 
 
         except KeyboardInterrupt:
