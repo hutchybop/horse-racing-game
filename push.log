@@ -36,3 +36,8 @@ To github.com:hutchybop/horse-racing-game.git
 ---git pull---
 Already up to date.
 
+[main 18d3a2a] run races_scraper.py
+ 2 files changed, 53 insertions(+)
+To github.com:hutchybop/horse-racing-game.git
+   1c9aa36..18d3a2a  main -> main
+
