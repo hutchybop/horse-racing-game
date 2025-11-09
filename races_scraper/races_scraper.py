@@ -17,10 +17,6 @@ load_dotenv("../.env")
 
 # Logger setup
 # In order: DEBUG < INFO < CHECK < API < SUUCCESS < WARNING < ERROR < CRITICAL
-import logging
-import sys
-import os
-
 def setup_logger():
     """Setup logger with console + file output, and custom log levels."""
     # Define custom levels
@@ -186,9 +182,13 @@ def get_api_data(endpoint, param_type=None, param=None, current_key_index=0):
             response = requests.get(rapidapi_url, headers=headers, params=params)
             response.raise_for_status()
             api_calls = int(response.headers.get("X-RateLimit-Requests-Remaining", 0))
+            logger.debug("get_api_data() response.headers")
+            logger.debug(response.headers)
             return response.json(), api_calls
         except requests.exceptions.HTTPError:
             status = response.status_code
+            logger.debug("get_api_data() response.headers")
+            logger.debug(response.headers)
             api_calls = int(response.headers.get("X-RateLimit-Requests-Remaining", 0))
             api_reset_seconds = int(response.headers.get("X-RateLimit-Requests-Reset", 0) or 0)
             if status == 429:
@@ -196,6 +196,12 @@ def get_api_data(endpoint, param_type=None, param=None, current_key_index=0):
                 london_tz = pytz.timezone("Europe/London")
                 now_london = datetime.now(london_tz)
                 reset_time_london = now_london + timedelta(seconds=api_reset_seconds)
+                if api_calls == 0:
+                    raise RateLimitError(
+                        reset_time=reset_time_london.strftime("%Y-%m-%d %H:%M:%S"),
+                        api_calls=api_calls,
+                        message="Hard rate limit reached — saving progress and exiting safely."
+                    )
                 if attempt < max_retries:
                     logger.warning(f"Rate limit hit (429). Waiting {retry_delay} seconds before retry...")
                     time.sleep(retry_delay)
@@ -204,7 +210,7 @@ def get_api_data(endpoint, param_type=None, param=None, current_key_index=0):
                     raise RateLimitError(
                         reset_time=reset_time_london.strftime("%Y-%m-%d %H:%M:%S"),
                         api_calls=api_calls,
-                        message="Rate limit reached — saving progress and exiting safely."
+                        message="Rate limit reached after retring — exiting safely."
                     )
         except Exception:
             raise
