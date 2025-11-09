@@ -1,6 +1,7 @@
 .env
 hrg_env/
 push.sh
+push.log
 pull-push.sh
 __pycache__/
 *.pyc
