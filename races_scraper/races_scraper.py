@@ -574,6 +574,9 @@ if __name__ == "__main__":
 
                 logger.info(f"Total amount of Races currently in DB: {race_count}")
                 logger.info("Cleanup complete")
+                logger.info("")
 
             except Exception as e:
                 logger.warning(f"Error closing browser: {e}")
+                logger.info("")
+            
