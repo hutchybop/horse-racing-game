@@ -46,8 +46,9 @@ def setup_logger():
     logger.handlers.clear()  # Ensure no duplicate handlers on reload
     # Define consistent width for log level column
     LEVEL_WIDTH = 9  # Long enough to fit the longest level name (e.g., "WARNING")
+    NAME_WIDTH = 22
     # Define the format with alignment
-    log_format = f"%(asctime)s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
+    log_format = f"%(asctime)s - %(filename)s:%(lineno)d-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(numeric_level)
@@ -399,6 +400,11 @@ if __name__ == "__main__":
         logger.info("Initial setup Complete")
 
         try:
+
+            logger.info("")
+            logger.info("$" * 60)
+            logger.info("File: races_scraper.py")
+            logger.info("$" * 60)
 
             while days_checked < max_days_to_try:
 
