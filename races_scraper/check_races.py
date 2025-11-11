@@ -44,7 +44,7 @@ def setup_logger():
     logger.handlers.clear()  # Ensure no duplicate handlers on reload
     # Define consistent width for log level column
     LEVEL_WIDTH = 9  # Long enough to fit the longest level name (e.g., "WARNING")
-    NAME_WIDTH = 4
+    NAME_WIDTH = 6
     # Define the format with alignment
     log_format = f"%(asctime)s - %(filename)s:%(lineno)-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
     # Console handler
