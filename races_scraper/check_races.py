@@ -229,6 +229,7 @@ if __name__ == "__main__":
         try:
 
             logger.info("")
+            logger.info("")
             logger.info("$" * 60)
             logger.info("File: check_races.py")
             logger.info("Carrying out validation checks on all races")

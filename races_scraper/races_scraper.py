@@ -397,14 +397,17 @@ if __name__ == "__main__":
         context = browser.new_context()
         page = context.new_page()
 
+        logger.info("")
+        logger.info("")
+        logger.info("$" * 60)
+        logger.info("File: races_scraper.py")
+        logger.info("Scraping rapidapi.com for race data")
+        logger.info("$" * 60)
+
         logger.info("Initial setup Complete")
 
-        try:
 
-            logger.info("")
-            logger.info("$" * 60)
-            logger.info("File: races_scraper.py")
-            logger.info("$" * 60)
+        try:
 
             while days_checked < max_days_to_try:
 
