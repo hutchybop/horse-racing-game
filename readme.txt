@@ -74,6 +74,10 @@ move_races.py
     Default is 10 - can be changed in fields
     Allows old races to be used if scraper fails
 
+check_races.py
+    Double checks all races in the races collection to ensure that are valid
+    Prints out any errors in races_scraper.log
+
 races_scraper.log
-    Shows output of races_scraper.py
+    Shows output of races_scraper.py and check_races.py
 
