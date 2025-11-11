@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 
 # Load .env
-load_dotenv("../../.env")
+load_dotenv("../.env")
 
 
 # Logger setup
@@ -224,16 +224,15 @@ if __name__ == "__main__":
         context = browser.new_context()
         page = context.new_page()
 
+        logger.info("")
+        logger.info("")
+        logger.info("$" * 60)
+        logger.info("File: check_races.py")
+        logger.info("Carrying out validation checks on all races")
+        logger.info("$" * 60)
         logger.debug("Initial setup complete")
 
         try:
-
-            logger.info("")
-            logger.info("")
-            logger.info("$" * 60)
-            logger.info("File: check_races.py")
-            logger.info("Carrying out validation checks on all races")
-            logger.info("$" * 60)
 
 
             for i, race_data in enumerate(races, start=1):
