@@ -48,7 +48,7 @@ def setup_logger():
     LEVEL_WIDTH = 9  # Long enough to fit the longest level name (e.g., "WARNING")
     NAME_WIDTH = 22
     # Define the format with alignment
-    log_format = f"%(asctime)s - %(filename)s:%(lineno)d-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
+    log_format = f"%(asctime)s - %(filename)s:%(lineno)-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(numeric_level)
