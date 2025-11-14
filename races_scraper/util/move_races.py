@@ -2,27 +2,18 @@ import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-<<<<<<< HEAD
-=======
-'''Moves races from player_races collection to races collection'''
-
-num_of_races_move = 10
-
->>>>>>> 606fdcd4ae53300ac0650f62132ae3ebe9819f6a
 # --- 1️⃣ Load environment and connect to DB ---
 load_dotenv()
+
 client = MongoClient(os.getenv("MONGODB_URI"))
 db = client["horseRacingGame"]
-
 played_races_collection = db["played_races"]
 races_collection = db["races"]
 
+num_of_races_move = 10
+
 # --- 2️⃣ Transfer 10 documents at a time, with verification ---
-<<<<<<< HEAD
 def transfer_races(batch_size=10):
-=======
-def transfer_races(batch_size=20):
->>>>>>> 606fdcd4ae53300ac0650f62132ae3ebe9819f6a
     # Find up to 10 races to transfer
     races_to_move = list(played_races_collection.find().limit(batch_size))
 
@@ -44,8 +35,4 @@ def transfer_races(batch_size=20):
         print(f"Insert verification failed: expected {len(inserted_ids)}, found {confirmed}. No deletions made.")
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    transfer_races()
-=======
     transfer_races(num_of_races_move)
->>>>>>> 606fdcd4ae53300ac0650f62132ae3ebe9819f6a
