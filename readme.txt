@@ -9,13 +9,13 @@ Check Mongodb horseRacingGame:
     races - has 10 or more races
     If not, run:
         races_scraper/races_scraper.py
-        Should be able to scrape enough races, might take 15-20 mins
+        Should be able to scrape enough races, might take 20-25 mins
         If fails and races in played_races run: 
             races_scraper/move_races.py
 
 Run flask (from root):
     flask run
-    http://127.0.0.1:5000/
+    Then go to: http://127.0.0.1:5000/
 
 
 # ---------- Initial setup ----------
