@@ -318,25 +318,26 @@ def is_correct_num_horses(race_data):
     valid_num_horses = 2 <= num_horses <= 8
     return valid_num_horses, num_horses
 
+
 def is_two_miles_or_less(race_data):
-    """
-    Returns True if distance <= 2 miles (16 furlongs), otherwise False.
-    Handles formats like '5f', '1m4f', '2m', '1m7f', etc.
-    """
+    distance_str = race_data.get("distance", "").replace(" ", "").lower()
+
     miles = 0
     furlongs = 0
-    for distance_str in race_data.get("distance", "0"):
-        # Parse the string
-        if 'm' in distance_str:
-            parts = distance_str.split('m')
-            miles = int(parts[0]) if parts[0] else 0
-            if 'f' in parts[1]:
-                furlongs = int(parts[1].replace('f', ''))
-        elif 'f' in distance_str:
-            furlongs = int(distance_str.replace('f', ''))
 
-        total_furlongs = miles * 8 + furlongs
-        return total_furlongs <= 16
+    # Case: distance like "3m", "3m2f", "2m4f"
+    if "m" in distance_str:
+        parts = distance_str.split("m")
+        miles = int(parts[0]) if parts[0] else 0
+        if parts[1].endswith("f"):
+            furlongs = int(parts[1].replace("f", ""))
+
+    # Case: only furlongs like "5f"
+    elif distance_str.endswith("f"):
+        furlongs = int(distance_str.replace("f", ""))
+
+    total_furlongs = miles * 8 + furlongs
+    return total_furlongs <= 16
 
 
 def build_races_dict(race_data, racingtv_url):

@@ -38,6 +38,7 @@ result = {
     "dates": [dict(date_counter)],
     "distances": [dict(distance_counter)],
     "num_horses": [dict(num_horses_counter)],
+    "total_num_races" : len(races)
 }
 
 # Print results nicely
