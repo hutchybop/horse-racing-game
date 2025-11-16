@@ -19,9 +19,9 @@
                 </div>
                 <div class="card-body">
                     {% if game_tracker != 0 %}
-                        <a class="btn btn-success mb-2" href="{{ url_for('race_control.hrg') }}">Continue Game</a><br>
+                        <a class="btn btn-success mb-2" href="{{ url_for('race_control.hrg', continued='true') }}">Continue Game</a><br>
                     {% endif %}
-                    <a class="btn btn-primary" href="{{ url_for('race_control.game_config') }}">Start New Game</a>
+                    <a class="btn btn-primary" href="{{ url_for('race_control.game_config', restart='true') }}">Start New Game</a>
                 </div>
             </div>
         </div>
