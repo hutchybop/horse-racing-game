@@ -1,5 +1,5 @@
 import random
-from flask import Blueprint, render_template, current_app, session, redirect, url_for
+from flask import Blueprint, render_template, current_app, request, redirect, flash
 from math import ceil
 from collections import defaultdict
 
@@ -19,9 +19,15 @@ def index():
 
 @race_control.route("/game_config", methods=["GET"])
 def game_config():
+    
+    restart = request.args.get('restart')
+    # Restart the game
+    if restart == "true":
+        flash("Game restarted", "success")
+        current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
+
     game_races = current_app.db.game_races.find_one({})
     game_tracker = game_races.get("game_tracker", 0)
-
     # Create the game if game_tracker is 0
     if game_tracker == 0 :
         # --- 1️⃣ Fetch and group races by distance ---
@@ -95,13 +101,19 @@ def game_config():
         # If game_tracker is not 0 just increase by 1
         current_app.db.game_races.update_one({}, {"$inc": {"game_tracker": 1}})
     
-    return redirect("/hrg")
+    return redirect(f"/hrg")
 
     
 @race_control.route("/hrg", methods=["GET"])
 def hrg():
+
     game_races = current_app.db.game_races.find_one({})
     game_tracker = game_races.get("game_tracker", 0)
+
+    continued = request.args.get('continued')
+    # Restart the game
+    if continued == "true":
+        flash(f"Game resumed from Race {game_tracker}", "success")
 
     # If no game is in progress ie game_tracker is 0, return to index
     #  Or if the game_tracker is not between 1 or 10 reset it and return to index
@@ -156,5 +168,11 @@ def finished():
 
 
     return render_template("finished.html", title="Game Finished")
+
+
+@race_control.route("/test_flash")
+def test_flash():
+    flash("This is a test flash", "success")
+    return redirect("/hrg")
 
     
