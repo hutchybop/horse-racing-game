@@ -12,3 +12,11 @@ window.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+
+
+function confirmAndGo(event) {
+    event.preventDefault();  // stop link navigation
+    if (confirm('Are you sure you want to view the result?')) {
+        window.location = event.currentTarget.href; // manually navigate
+    }
+}
