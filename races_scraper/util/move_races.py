@@ -12,6 +12,7 @@ races_collection = db["races"]
 
 num_of_races_move = 10
 
+
 # --- 2️⃣ Transfer 10 documents at a time, with verification ---
 def transfer_races(batch_size=10):
     # Find up to 10 races to transfer
@@ -32,7 +33,11 @@ def transfer_races(batch_size=10):
         played_races_collection.delete_many({"_id": {"$in": list(inserted_ids)}})
         print(f"Successfully transferred and removed {confirmed} races.")
     else:
-        print(f"Insert verification failed: expected {len(inserted_ids)}, found {confirmed}. No deletions made.")
+        print(
+            "Insert verification failed: expected "
+            f"{len(inserted_ids)}, found {confirmed}. No deletions made."
+        )
+
 
 if __name__ == "__main__":
     transfer_races(num_of_races_move)

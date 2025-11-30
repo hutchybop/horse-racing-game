@@ -1,6 +1,4 @@
 import os
-import sys
-from pymongo.errors import DuplicateKeyError
 from pymongo import MongoClient
 from dotenv import load_dotenv
 

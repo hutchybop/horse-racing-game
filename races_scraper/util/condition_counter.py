@@ -1,5 +1,4 @@
 import os
-import json
 import pprint
 from collections import Counter
 from pymongo import MongoClient
@@ -28,7 +27,7 @@ for race in races:
     course_counter[race.get("course")] += 1
     date_counter[str(race.get("date"))] += 1
     distance_counter[race.get("distance")] += 1
-    
+
     horses = race.get("horses", [])
     num_horses_counter[len(horses)] += 1
 
@@ -38,7 +37,7 @@ result = {
     "dates": [dict(date_counter)],
     "distances": [dict(distance_counter)],
     "num_horses": [dict(num_horses_counter)],
-    "total_num_races" : len(races)
+    "total_num_races": len(races),
 }
 
 # Print results nicely

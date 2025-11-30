@@ -16,7 +16,7 @@ played_races_collection = db["played_races"]
 all_played_races = list(played_races_collection.find({}))
 
 done_races = [
-    "https://www.racingtv.com/watch/replays/2023-04-16/curragh/1545", 
+    "https://www.racingtv.com/watch/replays/2023-04-16/curragh/1545",
     "https://www.racingtv.com/watch/replays/2023-05-02/nottingham/1710",
     "https://www.racingtv.com/watch/replays/2023-01-21/navan/1200",
     "https://www.racingtv.com/watch/replays/2023-04-14/leicester/1655",
@@ -25,12 +25,12 @@ done_races = [
     "https://www.racingtv.com/watch/replays/2023-02-03/dundalk/1830",
     "https://www.racingtv.com/watch/replays/2023-04-27/taunton/1750",
     "https://www.racingtv.com/watch/replays/2023-03-06/leopardstown/1415",
-    "https://www.racingtv.com/watch/replays/2023-02-24/dundalk/1830"
+    "https://www.racingtv.com/watch/replays/2023-02-24/dundalk/1830",
 ]
 
 for race in all_played_races:
 
-    url = race.get("racing_tv_url")   # FIXED key
+    url = race.get("racing_tv_url")  # FIXED key
 
     if url not in done_races:
         inserted = False

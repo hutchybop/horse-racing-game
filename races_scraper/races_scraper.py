@@ -26,15 +26,19 @@ def setup_logger():
     logging.addLevelName(CHECK_LEVEL, "CHECK")
     logging.addLevelName(API_LEVEL, "API")
     logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
+
     def check(self, message, *args, **kwargs):
         if self.isEnabledFor(CHECK_LEVEL):
             self._log(CHECK_LEVEL, message, args, **kwargs)
+
     def api(self, message, *args, **kwargs):
         if self.isEnabledFor(API_LEVEL):
             self._log(API_LEVEL, message, args, **kwargs)
+
     def success(self, message, *args, **kwargs):
         if self.isEnabledFor(SUCCESS_LEVEL):
             self._log(SUCCESS_LEVEL, message, args, **kwargs)
+
     logging.Logger.check = check
     logging.Logger.api = api
     logging.Logger.success = success
@@ -48,7 +52,10 @@ def setup_logger():
     LEVEL_WIDTH = 9  # Long enough to fit the longest level name (e.g., "WARNING")
     NAME_WIDTH = 4
     # Define the format with alignment
-    log_format = f"%(asctime)s - %(filename)s:%(lineno)-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
+    log_format = (
+        "%(asctime)s - %(filename)s:%(lineno)",
+        f"-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s",
+    )
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(numeric_level)
@@ -69,16 +76,15 @@ def setup_logger():
     return logger
 
 
-
 # Exits if .env fails to load API_KEY
 def check_api_key():
     # API_KEY setup - simple list
     API_KEYS = [
-        os.getenv(f"API_KEY_{i}") 
-        for i in range(1, 10) # Increase upperlimit for more keys
+        os.getenv(f"API_KEY_{i}")
+        for i in range(1, 10)  # Increase upperlimit for more keys
     ]
     # Remove None values
-    API_KEYS = [key for key in API_KEYS if key]  
+    API_KEYS = [key for key in API_KEYS if key]
 
     if not API_KEYS:
         logger.critical("No API keys found! Set API_KEY_1, API_KEY_2, etc. Exiting")
@@ -112,6 +118,7 @@ class Horse(BaseModel):
     last_ran_days_ago: str
     position: str
 
+
 class Race(BaseModel):
     title: str
     course: str
@@ -137,6 +144,7 @@ class Race(BaseModel):
 
 class RateLimitError(Exception):
     """Raised when rate limit is exceeded"""
+
     def __init__(self, reset_time, api_calls, message="Rate limit reached"):
         self.reset_time = reset_time
         self.api_calls = api_calls
@@ -168,12 +176,12 @@ def get_api_data(endpoint, param_type=None, param=None, current_key_index=0):
         params = {param_type: param}
     else:
         raise ValueError(f"Unknown endpoint: {endpoint}")
-    
+
     API_KEY = API_KEYS[current_key_index]
 
     headers = {
         "x-rapidapi-key": API_KEY,
-        "x-rapidapi-host": "horse-racing.p.rapidapi.com"
+        "x-rapidapi-host": "horse-racing.p.rapidapi.com",
     }
     # Retry logic
     max_retries = 1
@@ -191,7 +199,9 @@ def get_api_data(endpoint, param_type=None, param=None, current_key_index=0):
             logger.debug("get_api_data() response.headers")
             logger.debug(response.headers)
             api_calls = int(response.headers.get("X-RateLimit-Requests-Remaining", 0))
-            api_reset_seconds = int(response.headers.get("X-RateLimit-Requests-Reset", 0) or 0)
+            api_reset_seconds = int(
+                response.headers.get("X-RateLimit-Requests-Reset", 0) or 0
+            )
             if status == 429:
                 # Calculate reset time
                 london_tz = pytz.timezone("Europe/London")
@@ -201,17 +211,23 @@ def get_api_data(endpoint, param_type=None, param=None, current_key_index=0):
                     raise RateLimitError(
                         reset_time=reset_time_london.strftime("%Y-%m-%d %H:%M:%S"),
                         api_calls=api_calls,
-                        message="Hard rate limit reached — saving progress and exiting safely."
+                        message=(
+                            "Hard rate limit reached — "
+                            "saving progress and exiting safely."
+                        ),
                     )
                 if attempt < max_retries:
-                    logger.warning(f"Rate limit hit (429). Waiting {retry_delay} seconds before retry...")
+                    logger.warning(
+                        "Rate limit hit (429). Waiting",
+                        f"{retry_delay} seconds before retry...",
+                    )
                     time.sleep(retry_delay)
                     continue
                 else:
                     raise RateLimitError(
                         reset_time=reset_time_london.strftime("%Y-%m-%d %H:%M:%S"),
                         api_calls=api_calls,
-                        message="Rate limit reached after retring — exiting safely."
+                        message="Rate limit reached after retring — exiting safely.",
                     )
         except Exception:
             raise
@@ -274,7 +290,9 @@ def is_valid_racingtv_url(race_data, page):
     # Format course for URL (lowercase, hyphens instead of spaces)
     course_slug = course.lower().replace(" ", "-")
     # Build the final URL
-    racingtv_url = f"https://www.racingtv.com/watch/replays/{date_str}/{course_slug}/{time_str}"
+    racingtv_url = (
+        f"https://www.racingtv.com/watch/replays/{date_str}/{course_slug}/{time_str}"
+    )
     # Retry logic
     retries = 3
     for attempt in range(retries):
@@ -287,7 +305,8 @@ def is_valid_racingtv_url(race_data, page):
             # If "Cannot find this race" text appears → invalid
             if page.query_selector("text=Cannot find this race"):
                 return False, "#"
-            # Check for a valid video element with a 'poster' attribute (only present on working videos)
+            # Check for a valid video element with a 'poster' attribute
+            # (only present on working videos)
             video_element = page.query_selector("video[poster]")
             if video_element:
                 return True, racingtv_url
@@ -295,7 +314,9 @@ def is_valid_racingtv_url(race_data, page):
             logger.warning(f"Attempt {attempt + 1}: uncertain result, retrying...")
             time.sleep(2)
         except TimeoutError:
-            logger.warning(f"Attempt {attempt + 1}: timeout fetching video page, retrying...")
+            logger.warning(
+                f"Attempt {attempt + 1}: timeout fetching video page, retrying..."
+            )
             time.sleep(2)
     return False, "#"  # After all retries failed
 
@@ -364,18 +385,18 @@ def build_races_dict(race_data, racingtv_url):
                 "form": horse.get("form", ""),
                 "sp": horse.get("sp", ""),
                 "last_ran_days_ago": horse.get("last_ran_days_ago", ""),
-                "position": horse.get("position", "")
+                "position": horse.get("position", ""),
             }
             for horse in race_data.get("horses", [])
             if horse.get("non_runner") == "0"  # Only include runners (non-runners = 0)
         ],
-        "racing_tv_url": racingtv_url
+        "racing_tv_url": racingtv_url,
     }
     # Validate race and horses with pydantic
     try:
-        validated_data = Race(**race)
+        Race(**race)
         return True, race
-    except ValidationError as e:
+    except ValidationError:
         return False, {}
 
 
@@ -386,7 +407,7 @@ if __name__ == "__main__":
     logger = setup_logger()
     API_KEYS = check_api_key()
     races_collection, race_index_collection = mongodb_connection()
-    
+
     # Limits
     max_days_to_try = 10
     days_checked = 0
@@ -407,7 +428,6 @@ if __name__ == "__main__":
 
         logger.info("Initial setup Complete")
 
-
         try:
 
             while days_checked < max_days_to_try:
@@ -415,34 +435,45 @@ if __name__ == "__main__":
                 # get the race_ids doc from db. (should only ever be one doc)
                 race_index = race_index_collection.find_one()
 
-
-                # --------------------------------------Process Race IDs--------------------------------------
+                # ------------------------Process Race IDs------------------------
                 logger.info("=" * 60)
                 logger.info("Processing Race IDs")
                 logger.info("=" * 60)
-                
+
                 if "race_ids" in race_index and race_index["race_ids"]:
 
                     num_of_race_ids = len(race_index.get("race_ids", []))
                     logger.info(f"Number of Race IDs to check {num_of_race_ids}")
 
                     ids_added = 0
-                    
+
                     # Create a copy of races_ids and loop through
                     for race_id in race_index.get("race_ids", [])[:]:
-                    
+
                         logger.check(f"Checking race ID: {race_id}")
 
-                        api_calls = None # initialise api_calls, stops old data being shown
-        
+                        api_calls = (
+                            None  # initialise api_calls, stops old data being shown
+                        )
+
                         try:
-                            race_data, api_calls = get_api_data(endpoint="race", param=race_id, current_key_index=current_key_index)
-                            logger.api(f"API Requests Remaining: {api_calls}, waiting 6 seconds")
+                            race_data, api_calls = get_api_data(
+                                endpoint="race",
+                                param=race_id,
+                                current_key_index=current_key_index,
+                            )
+                            logger.api(
+                                f"API Requests Remaining: {api_calls}, "
+                                "waiting 6 seconds"
+                            )
                             time.sleep(6)
                         except RateLimitError as e:
                             current_key_index += 1
                             if current_key_index < len(API_KEYS):
-                                logger.api(f"Rate limit reached for API_KEY_{current_key_index}")
+                                logger.api(
+                                    "Rate limit reached for",
+                                    f"API_KEY_{current_key_index}",
+                                )
                                 logger.api(f"API Requests left for Key: {e.api_calls}")
                                 logger.api(f"API key will reset at: {e.reset_time}")
                                 logger.warning("Trying next key, if there is one...")
@@ -452,67 +483,113 @@ if __name__ == "__main__":
                             logger.critical(e.message)
                             raise SystemExit(1)
                         except Exception as e:
-                            logger.error(f"Unexpected error processing race {race_id}: {e}")
-                            logger.warning(f"Skipping race race id {race_id} due to error")
+                            logger.error(
+                                f"Unexpected error processing race {race_id}: {e}"
+                            )
+                            logger.warning(
+                                f"Skipping race race id {race_id} due to error"
+                            )
                             if api_calls is not None:
                                 logger.api(f"API Requests left for Key: {api_calls}")
                             # Remove race_id from race_ids list in db
-                            race_index_collection.update_one({}, {"$pull": {"race_ids": race_id}})
+                            race_index_collection.update_one(
+                                {}, {"$pull": {"race_ids": race_id}}
+                            )
                             time.sleep(6)
                             continue
-        
+
                         # Checking valid number of horses and Racing TV link
-                        valid_racingtv, racingtv_url = is_valid_racingtv_url(race_data, page)
+                        valid_racingtv, racingtv_url = is_valid_racingtv_url(
+                            race_data, page
+                        )
                         valid_num_horses, num_horses = is_correct_num_horses(race_data)
                         valid_distance = is_two_miles_or_less(race_data)
-                        valid_race, race = build_races_dict(race_data, racingtv_url) # checks all values are present in dict
-        
-                        if valid_racingtv and valid_num_horses and valid_distance and valid_race:
+                        valid_race, race = build_races_dict(
+                            race_data, racingtv_url
+                        )  # checks all values are present in dict
+
+                        if (
+                            valid_racingtv
+                            and valid_num_horses
+                            and valid_distance
+                            and valid_race
+                        ):
                             # Add race to races collection in db
                             races_collection.insert_one(race)
                             ids_added += 1
                             # Remove race_id from race_ids list in db
-                            race_index_collection.update_one({}, {"$pull": {"race_ids": race_id}})
-                            logger.success(f"{race_id} added to races collection in db")
+                            race_index_collection.update_one(
+                                {}, {"$pull": {"race_ids": race_id}}
+                            )
+                            logger.success(
+                                f"{race_id} " "added to races collection in db"
+                            )
                             #  Get number of races in db
                             race_count = races_collection.count_documents({})
                             logger.info(f"Total races added to DB so far: {race_count}")
                         else:
                             # Show error if race not valid
                             if not valid_racingtv:
-                                logger.warning(f"No valid Racing TV Video, race id {race_id} not added")
+                                logger.warning(
+                                    "No valid Racing TV Video, "
+                                    f"race id {race_id} not added"
+                                )
                             if not valid_num_horses:
                                 if num_horses < 2:
-                                    logger.warning(f"Not enough horses ran, race id {race_id} not added")
+                                    logger.warning(
+                                        "Not enough horses ran, "
+                                        f"race id {race_id} not added"
+                                    )
                                 if num_horses > 8:
-                                    logger.warning(f"Too many horses ran, race id {race_id} not added")
+                                    logger.warning(
+                                        "Too many horses ran, "
+                                        f"race id {race_id} not added"
+                                    )
+
                             if not valid_distance:
-                                logger.warning(f"Race distance too long, race id {race_id} not added")
+                                logger.warning(
+                                    "Race distance too long, "
+                                    f"race id {race_id} not added"
+                                )
+
                             if not valid_race:
-                                logger.warning(f"{race_id} skipped (missing fields or invalid horses)")
+                                logger.warning(
+                                    f"{race_id} "
+                                    "skipped (missing fields or invalid horses)"
+                                )
 
                             # Remove race_id
-                            race_index_collection.update_one({}, {"$pull": {"race_ids": race_id}})
-                    
+                            race_index_collection.update_one(
+                                {}, {"$pull": {"race_ids": race_id}}
+                            )
+
                     # Logs after loop has finished
-                    logger.info(f"Out of {num_of_race_ids} Race IDs, {ids_added} added to db")
-                    logger.info("No more Race IDs to process, indexing Race IDs for next day")
-                
+                    logger.info(
+                        f"Out of {num_of_race_ids} Race IDs, {ids_added} added to db"
+                    )
+                    logger.info(
+                        "No more Race IDs to process, indexing Race IDs for next day"
+                    )
+
                 else:
-                    logger.info("No racing IDs to process, indexing Race IDs for next day")
+                    logger.info(
+                        "No racing IDs to process, indexing Race IDs for next day"
+                    )
 
                 logger.info("")  # logs an empty line
 
-                # --------------------------------------Index Race IDs for the Next Date--------------------------------------
+                # ----------------Index Race IDs for the Next Day------------------
                 # Get the date to check
                 last_race_date = race_index.get("current_race_date", "2022-12-31")
                 # Convert to datetime, add one day, and convert back to string
-                race_date = (datetime.strptime(last_race_date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
-                
+                race_date = (
+                    datetime.strptime(last_race_date, "%Y-%m-%d") + timedelta(days=1)
+                ).strftime("%Y-%m-%d")
+
                 logger.info("=" * 60)
                 logger.info(f"Indexing Race IDs for {race_date}")
                 logger.info("=" * 60)
-                
+
                 # Check vlaid course for the date
                 valid_courses = get_racingtv_courses(race_date, page)
 
@@ -522,14 +599,23 @@ if __name__ == "__main__":
 
                 # Get racecard api data
                 try:
-                    race_card_data, api_calls = get_api_data(endpoint="racecards", param_type="date", param=race_date, current_key_index=current_key_index)
+                    race_card_data, api_calls = get_api_data(
+                        endpoint="racecards",
+                        param_type="date",
+                        param=race_date,
+                        current_key_index=current_key_index,
+                    )
                     days_checked = 0
-                    logger.api(f"API Requests Remaining: {api_calls}, waiting 6 seconds")
+                    logger.api(
+                        f"API Requests Remaining: {api_calls}, waiting 6 seconds"
+                    )
                     time.sleep(6)
                 except RateLimitError as e:
                     current_key_index += 1
                     if current_key_index < len(API_KEYS):
-                        logger.api(f"Rate limit reached for API_KEY_{current_key_index}")
+                        logger.api(
+                            f"Rate limit reached for API_KEY_{current_key_index}"
+                        )
                         logger.api(f"API Requests left for Key: {e.api_calls}")
                         logger.api(f"API key will reset at: {e.reset_time}")
                         logger.warning("Trying next key, if there is one...")
@@ -539,7 +625,9 @@ if __name__ == "__main__":
                     logger.critical(e.message)
                     raise SystemExit(1)
                 except Exception as e:
-                    logger.error(f"Unexpected error processing race date {race_date}: {e}")
+                    logger.error(
+                        f"Unexpected error processing race date {race_date}: {e}"
+                    )
                     logger.warning(f"Skipping race date {race_date} due to error")
                     if api_calls is not None:
                         logger.api(f"API Requests left for Key: {api_calls}")
@@ -547,27 +635,39 @@ if __name__ == "__main__":
                     time.sleep(6)
                     continue
 
-                # Checks racecard courses against valid courses and adds race_id to race_ids if valid
+                # Checks racecard courses against valid courses and adds
+                # race_id to race_ids if valid
                 num_of_races_added = 0
                 for race in race_card_data:
                     race_course = race.get("course", "")
                     race_course_slug = race_course.lower().replace(" ", "-")
                     if race_course_slug in valid_courses:
                         id_race = race.get("id_race")
-                        # Add race_id to race_ids list in db, only if not already present
-                        race_index_collection.update_one({}, {"$addToSet": {"race_ids": id_race}})
+                        # Add race_id to race_ids list in db, only if
+                        # not already present
+                        race_index_collection.update_one(
+                            {}, {"$addToSet": {"race_ids": id_race}}
+                        )
                         num_of_races_added += 1
 
-                # Update the current_race_date so the script continues from next date next time
-                race_index_collection.update_one({}, {"$set": {"current_race_date": race_date}})
+                # Update the current_race_date so the script continues
+                # from next date next time
+                race_index_collection.update_one(
+                    {}, {"$set": {"current_race_date": race_date}}
+                )
 
                 num_of_races_in_RCD = len(race_card_data)
 
-                logger.info(f"Out of {num_of_races_in_RCD} races, {num_of_races_added} added to race_index")
-                logger.info(f"All valid Race IDs for {race_date} added, now processing Race IDs")
+                logger.info(
+                    f"Out of {num_of_races_in_RCD} races, "
+                    f"{num_of_races_added} added to race_index"
+                )
+                logger.info(
+                    f"All valid Race IDs for {race_date} "
+                    "added, now processing Race IDs"
+                )
 
                 logger.info("")  # logs an empty line
-
 
         except KeyboardInterrupt:
             logger.warning("Manual stop detected. Cleaning up...")
@@ -589,4 +689,3 @@ if __name__ == "__main__":
             except Exception as e:
                 logger.warning(f"Error closing browser: {e}")
                 logger.info("")
-            

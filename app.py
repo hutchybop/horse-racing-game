@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
@@ -19,7 +19,7 @@ def create_app():
     # app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
     app.config["SECRET_KEY"] = "devsecret"
 
-    app.config['TEMPLATES_AUTO_RELOAD'] = True # auto reloads templates on edit
+    app.config["TEMPLATES_AUTO_RELOAD"] = True  # auto reloads templates on edit
 
     app.register_blueprint(race_control)
 

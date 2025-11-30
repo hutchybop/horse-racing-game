@@ -6,6 +6,8 @@
 # Install with: 
     # pip3 install -r requirements.txt
 
+black
+flake8
 requests
 pytz
 pydantic

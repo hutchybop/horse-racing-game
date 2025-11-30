@@ -1,4 +1,3 @@
-
 import os
 import sys
 import time
@@ -24,15 +23,19 @@ def setup_logger():
     logging.addLevelName(CHECK_LEVEL, "CHECK")
     logging.addLevelName(API_LEVEL, "API")
     logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
+
     def check(self, message, *args, **kwargs):
         if self.isEnabledFor(CHECK_LEVEL):
             self._log(CHECK_LEVEL, message, args, **kwargs)
+
     def api(self, message, *args, **kwargs):
         if self.isEnabledFor(API_LEVEL):
             self._log(API_LEVEL, message, args, **kwargs)
+
     def success(self, message, *args, **kwargs):
         if self.isEnabledFor(SUCCESS_LEVEL):
             self._log(SUCCESS_LEVEL, message, args, **kwargs)
+
     logging.Logger.check = check
     logging.Logger.api = api
     logging.Logger.success = success
@@ -46,7 +49,11 @@ def setup_logger():
     LEVEL_WIDTH = 9  # Long enough to fit the longest level name (e.g., "WARNING")
     NAME_WIDTH = 6
     # Define the format with alignment
-    log_format = f"%(asctime)s - %(filename)s:%(lineno)-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s"
+    log_format = (
+        "%(asctime)s - %(filename)s:%(lineno)-"
+        f"{NAME_WIDTH}s - %(levelname)-"
+        f"{LEVEL_WIDTH}s - %(message)s"
+    )
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(numeric_level)
@@ -106,7 +113,9 @@ def is_valid_racingtv_url(race_data, page):
     # Format course for URL (lowercase, hyphens instead of spaces)
     course_slug = course.lower().replace(" ", "-")
     # Build the final URL
-    racingtv_url = f"https://www.racingtv.com/watch/replays/{date_str}/{course_slug}/{time_str}"
+    racingtv_url = (
+        f"https://www.racingtv.com/watch/replays/{date_str}/{course_slug}/{time_str}"
+    )
     # Retry logic
     retries = 3
     for attempt in range(retries):
@@ -119,7 +128,8 @@ def is_valid_racingtv_url(race_data, page):
             # If "Cannot find this race" text appears → invalid
             if page.query_selector("text=Cannot find this race"):
                 return False, "#"
-            # Check for a valid video element with a 'poster' attribute (only present on working videos)
+            # Check for a valid video element with a 'poster' attribute
+            # (only present on working videos)
             video_element = page.query_selector("video[poster]")
             if video_element:
                 return True, racingtv_url
@@ -129,7 +139,9 @@ def is_valid_racingtv_url(race_data, page):
             time.sleep(2)
         except TimeoutError:
             print()
-            logger.debug(f"Attempt {attempt + 1}: timeout fetching video page, retrying...")
+            logger.debug(
+                f"Attempt {attempt + 1}: timeout fetching video page, retrying..."
+            )
             time.sleep(2)
     return False, "#"  # After all retries failed
 
@@ -174,16 +186,20 @@ def is_two_miles_or_less(race_data):
 def valid_race_values(race_data):
     """
     Check every field in a race dict (including nested horse dicts)
-    for missing or invalid values, except 'form' and 'last_ran_days_ago' inside horse dicts.
+    for missing or invalid values, except 'form' and 'last_ran_days_ago'
+    inside horse dicts.
     Returns:
         (True, []) if all valid
         (False, [list of invalid key paths]) otherwise
     """
     invalid_values = {None, "", " ", "null", "None"}
     invalid_keys = []
+
     def check_value(value, path, parent_key=None):
         if isinstance(value, dict):
-            skip_keys = {"form", "last_ran_days_ago"} if parent_key == "horses" else set()
+            skip_keys = (
+                {"form", "last_ran_days_ago"} if parent_key == "horses" else set()
+            )
             for k, v in value.items():
                 if k in skip_keys:
                     continue
@@ -198,12 +214,11 @@ def valid_race_values(race_data):
                     invalid_keys.append(path)
             elif value in invalid_values:
                 invalid_keys.append(path)
+
     check_value(race_data, "", parent_key=None)
     if invalid_keys:
         return False, invalid_keys
     return True, []
-
-
 
 
 # Main script
@@ -233,10 +248,11 @@ if __name__ == "__main__":
 
         try:
 
-
             for i, race_data in enumerate(races, start=1):
                 # Progress printed in-place on one line
-                sys.stdout.write(f"\rRace {i} of {races_length} ({(i / races_length) * 100:.1f}%)")
+                sys.stdout.write(
+                    f"\rRace {i} of {races_length} ({(i / races_length) * 100:.1f}%)"
+                )
                 sys.stdout.flush()
 
                 race_id = race_data.get("_id", "")
@@ -248,14 +264,16 @@ if __name__ == "__main__":
                 valid_values, error_values = valid_race_values(race_data)
 
                 if not valid_racingtv:
-                    invalid_race["invalid_racingTV_url"] = race_data.get("racing_tv_url", "")
+                    invalid_race["invalid_racingTV_url"] = race_data.get(
+                        "racing_tv_url", ""
+                    )
                 if not valid_num_horses:
                     invalid_race["invalid_num_of_horses"] = num_horses
                 if not valid_distance:
                     invalid_race["invalid_distance"] = race_data.get("distance", "")
                 if not valid_values:
                     invalid_race["invalid_values"] = error_values
-                
+
                 if invalid_race:
                     invalid_races[race_id] = invalid_race
                     print()
@@ -264,15 +282,16 @@ if __name__ == "__main__":
             # Move to a new line once loop finishes
             print()
             if invalid_races:
-                logger.info("Some races failed checks:\n%s", json.dumps(invalid_races, indent=4))
+                logger.info(
+                    "Some races failed checks:\n%s", json.dumps(invalid_races, indent=4)
+                )
             else:
                 logger.info("All races checked, all good!!")
-
 
         except KeyboardInterrupt:
             print("Manual stop detected. Cleaning up...")
             if browser.is_connected():
-                    browser.close()
+                browser.close()
             raise SystemExit(0)
         except Exception as e:
             print(f"Unexpected crash: {e}")
@@ -287,4 +306,3 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"Error closing browser: {e}")
                 print("")
-
