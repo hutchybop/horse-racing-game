@@ -62,7 +62,14 @@ def create_app():
     app.db = MongoClient(app.config["MONGODB_URI"]).get_default_database()
     init_job_indexes(app.db)
 
-    app.config["SECRET_KEY"] = "devsecret"
+    secret_key = os.getenv("SECRET_KEY")
+    if not secret_key:
+        raise RuntimeError(
+            "Missing required SECRET_KEY environment variable. "
+            "Set SECRET_KEY in your .env file before starting the app."
+        )
+
+    app.config["SECRET_KEY"] = secret_key
     app.config["TEMPLATES_AUTO_RELOAD"] = True
 
     app.register_blueprint(race_control)

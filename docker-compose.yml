@@ -1,42 +1,49 @@
-version: "3.9"
-
 services:
-  web:
-    build: .
-    command: gunicorn -w 3 -b 0.0.0.0:3008 "web:create_app()"
+  horse-racing-game:
+    image: ghcr.io/hutchybop/horse-racing-game:latest
+    container_name: horse-racing-game
+    restart: unless-stopped
     env_file:
       - .env
     environment:
       ENV: production
-      MONGODB_URI: ${MONGODB_URI}
-      LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      SECRET_KEY: ${SECRET_KEY:-devsecret}
-      API_KEY_1: ${API_KEY_1:-}
-    ports:
-      - "3008:3008"
-    depends_on:
-      - mongo
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3008/', timeout=5)",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - npm_network
 
-  worker:
-    build: .
+  horse-racing-worker:
+    image: ghcr.io/hutchybop/horse-racing-game:latest
+    container_name: horse-racing-worker
+    restart: unless-stopped
     command: python -m jobs.runner
     env_file:
       - .env
     environment:
       ENV: production
-      MONGODB_URI: ${MONGODB_URI}
-      LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      API_KEY_1: ${API_KEY_1:-}
-    depends_on:
-      - mongo
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - npm_network
 
-  mongo:
-    image: mongo:7
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-
-volumes:
-  mongo_data:
+networks:
+  npm_network:
+    external: true

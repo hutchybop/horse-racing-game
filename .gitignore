@@ -34,6 +34,7 @@ venv/
 # Logs
 *.log
 races_scraper.log
+races_scraper/races_scraper.log
 
 # Project specific
 hrg_env/
@@ -41,6 +42,7 @@ push.sh
 push.log
 pull-push.sh
 replacements.txt
+docs/
 
 # OS
 .DS_Store
