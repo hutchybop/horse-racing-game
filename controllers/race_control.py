@@ -18,6 +18,7 @@ from jobs.service import (
     get_logs_after_seq,
     get_race_count,
     has_minimum_races,
+    request_job_cancel,
     serialize_job,
 )
 
@@ -80,8 +81,16 @@ def index():
         return redirect("/scraper")
 
     game_tracker = get_game_tracker()
+    total_races = get_race_count(current_app.db)
+    games_exact = total_races / 10
+    approx_games = int(((games_exact + 5) // 10) * 10)
 
-    return render_template("index.html", title="Home", game_tracker=game_tracker)
+    return render_template(
+        "index.html",
+        title="Home",
+        game_tracker=game_tracker,
+        approx_games=approx_games,
+    )
 
 
 @race_control.route("/game_config", methods=["GET"])
@@ -304,3 +313,27 @@ def api_get_job_logs(job_id):
             "next_seq": next_seq,
         }
     )
+
+
+@race_control.route("/api/jobs/<job_id>/cancel", methods=["POST"])
+def api_cancel_job(job_id):
+    try:
+        updated_job, result = request_job_cancel(current_app.db, job_id)
+    except InvalidId:
+        return jsonify({"error": "Invalid job id"}), 400
+
+    if result == "not_found":
+        return jsonify({"error": "Job not found"}), 404
+
+    if result == "already_finished":
+        return (
+            jsonify(
+                {
+                    "error": "Job is not active",
+                    "job": normalize_job(updated_job),
+                }
+            ),
+            409,
+        )
+
+    return jsonify({"job": normalize_job(updated_job), "result": result})

@@ -11,9 +11,12 @@
             <div class="card shadow-sm mb-3">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Race Availability Check</h4>
-                    <span id="raceCountBadge" class="badge rounded-pill text-bg-primary">
-                        {{ race_count }} / {{ min_required }} races
-                    </span>
+                    <div class="d-flex align-items-center gap-2">
+                        <button id="refreshRaceCountBtn" type="button" class="btn btn-sm btn-outline-secondary">Refresh Count</button>
+                        <span id="raceCountBadge" class="badge rounded-pill text-bg-primary">
+                            {{ race_count }} / {{ min_required }} races
+                        </span>
+                    </div>
                 </div>
                 <div class="card-body">
                     <p class="mb-1">At least {{ min_required }} races are required before starting a new game.</p>
@@ -35,7 +38,8 @@
                 </div>
                 <div class="card-body d-flex flex-column">
                     <p class="mb-3">Fetches fresh races from RapidAPI and saves valid races into the <code>races</code> collection.</p>
-                    <button id="runScraperBtn" class="btn btn-primary mt-auto">Run races_scraper.py</button>
+                    <p>Note: This could take 20-30mins</p>
+                    <button id="runScraperBtn" class="btn btn-primary mt-auto">Run Scraper</button>
                 </div>
             </div>
         </div>
@@ -47,7 +51,8 @@
                 </div>
                 <div class="card-body d-flex flex-column">
                     <p class="mb-3">Moves up to 10 races from <code>played_races</code> back into <code>races</code> to help reach the minimum count.</p>
-                    <button id="runMoveBtn" class="btn btn-outline-primary mt-auto">Run move_races.py</button>
+                    <p>Note: Races in <code>played_races</code> have already been played</p>
+                    <button id="runMoveBtn" class="btn btn-outline-primary mt-auto">Copy From Played</button>
                 </div>
             </div>
         </div>
@@ -58,7 +63,10 @@
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <span id="jobTitle">Process Output</span>
-                    <span id="jobStatus" class="badge text-bg-secondary">Idle</span>
+                    <div class="d-flex align-items-center gap-2">
+                        <button id="cancelJobBtn" type="button" class="btn btn-sm btn-outline-danger d-none">Cancel Process</button>
+                        <span id="jobStatus" class="badge text-bg-secondary">Idle</span>
+                    </div>
                 </div>
                 <div class="card-body">
                     <pre id="logOutput" class="log-box mb-0">No process output yet.</pre>

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from signal import SIGTERM
 from typing import Any, Optional
 
 from bson import ObjectId
@@ -99,6 +100,8 @@ def enqueue_job(
         "race_count_after": None,
         "last_log_seq": 0,
         "heartbeat_at": None,
+        "cancel_requested": False,
+        "cancel_requested_at": None,
     }
     insert_result = db.jobs.insert_one(job)
     job["_id"] = insert_result.inserted_id
@@ -108,7 +111,7 @@ def enqueue_job(
 def claim_next_job(db: Any, worker_id: str) -> Optional[dict[str, Any]]:
     now = utc_now()
     return db.jobs.find_one_and_update(
-        {"status": "queued"},
+        {"status": "queued", "cancel_requested": {"$ne": True}},
         {
             "$set": {
                 "status": "running",
@@ -202,6 +205,55 @@ def mark_stale_running_jobs(
 
 def get_job_by_id(db: Any, job_id: str) -> Optional[dict[str, Any]]:
     return db.jobs.find_one({"_id": parse_job_id(job_id)})
+
+
+def is_cancel_requested(db: Any, job_id: ObjectId) -> bool:
+    job = db.jobs.find_one({"_id": job_id}, {"cancel_requested": 1})
+    return bool(job and job.get("cancel_requested"))
+
+
+def request_job_cancel(db: Any, job_id: str) -> tuple[Optional[dict[str, Any]], str]:
+    oid = parse_job_id(job_id)
+    job = db.jobs.find_one({"_id": oid})
+    if not job:
+        return None, "not_found"
+
+    status = job.get("status")
+    if status not in {"queued", "running"}:
+        return job, "already_finished"
+
+    now = utc_now()
+    if status == "queued":
+        updated = db.jobs.find_one_and_update(
+            {"_id": oid, "status": "queued"},
+            {
+                "$set": {
+                    "status": "cancelled",
+                    "cancel_requested": True,
+                    "cancel_requested_at": now,
+                    "finished_at": now,
+                    "error_message": "Cancelled by user before start.",
+                    "exit_code": 143,
+                    "race_count_after": get_race_count(db),
+                }
+            },
+            return_document=ReturnDocument.AFTER,
+        )
+        return updated, "cancelled"
+
+    updated = db.jobs.find_one_and_update(
+        {"_id": oid, "status": "running"},
+        {
+            "$set": {
+                "cancel_requested": True,
+                "cancel_requested_at": now,
+                "error_message": "Cancellation requested by user.",
+                "signal": int(SIGTERM),
+            }
+        },
+        return_document=ReturnDocument.AFTER,
+    )
+    return updated, "cancelling"
 
 
 def get_logs_after_seq(

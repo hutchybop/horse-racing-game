@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import select
 import socket
 import subprocess
 import sys
@@ -14,10 +15,13 @@ from jobs.service import (
     append_job_log,
     claim_next_job,
     complete_job,
+    get_race_count,
     get_job_command,
     get_repo_root,
     init_job_indexes,
+    is_cancel_requested,
     mark_stale_running_jobs,
+    MIN_REQUIRED_RACES,
     set_job_pid,
     update_job_heartbeat,
 )
@@ -56,15 +60,64 @@ def run_worker_loop(poll_interval: float = 2.0) -> None:
             set_job_pid(db, job_id, proc.pid)
 
             assert proc.stdout is not None
+            cancelled = False
+            while proc.poll() is None:
+                if is_cancel_requested(db, job_id):
+                    proc.terminate()
+                    cancelled = True
+                    seq += 1
+                    append_job_log(
+                        db,
+                        job_id=job_id,
+                        seq=seq,
+                        line="[worker] Cancellation requested. Terminating process...",
+                        stream="stderr",
+                    )
+                    break
+
+                ready, _, _ = select.select([proc.stdout], [], [], 1.0)
+                if ready:
+                    line = proc.stdout.readline()
+                    if line:
+                        seq += 1
+                        append_job_log(
+                            db,
+                            job_id=job_id,
+                            seq=seq,
+                            line=line,
+                            stream="stdout",
+                        )
+                update_job_heartbeat(db, job_id)
+
             for line in proc.stdout:
                 seq += 1
                 append_job_log(db, job_id=job_id, seq=seq, line=line, stream="stdout")
-                update_job_heartbeat(db, job_id)
 
             exit_code = proc.wait()
-            if exit_code == 0:
+            if cancelled:
+                complete_job(
+                    db,
+                    job_id,
+                    status="cancelled",
+                    exit_code=exit_code,
+                    error_message="Cancelled by user.",
+                )
+            elif exit_code == 0:
                 complete_job(db, job_id, status="succeeded", exit_code=exit_code)
             else:
+                race_count_after = get_race_count(db)
+                reached_minimum = race_count_after >= MIN_REQUIRED_RACES
+                if job_type == "scrape_races" and reached_minimum:
+                    complete_job(
+                        db,
+                        job_id,
+                        status="succeeded",
+                        exit_code=exit_code,
+                        error_message=(
+                            "Script exited early but minimum races were reached."
+                        ),
+                    )
+                    continue
                 complete_job(
                     db,
                     job_id,

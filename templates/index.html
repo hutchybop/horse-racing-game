@@ -12,7 +12,10 @@
         <div class="col-6">
             <div class="card text-center">
                 <div class="card-header">
-                    <h4 id="gameTitle">Horse Racing Game</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 id="gameTitle" class="mb-0">Horse Racing Game</h4>
+                        <span class="badge rounded-pill text-bg-primary">~{{ approx_games }} games</span>
+                    </div>
                     {% if game_tracker != 0 %}
                         <p>A game is already in progress on Race number: <strong>{{ game_tracker }}</strong></p>
                     {% endif %}
