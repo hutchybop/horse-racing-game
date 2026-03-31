@@ -35,9 +35,10 @@ Install playwright (for server look at requirements.txt):
 Setup .env:
     create .env in project root if not already there.
     Add:
-        location="server" # only applicable for the server, allows logger to save to races_scraper.log
+        ALT_SCRAPER_PATH  # Path to scraper log if required - Optional
         MONGODB_URI # for horceRacingGame db
-        API_KEY_1 # from rapidapi.com - horse racing - multiple keys allowed
+        API_KEY_1 # from rapidapi.com - horse racing
+        SECRET_KEY # key for session
 
 
 # ---------- Mongodb horseRacinGame DB config ----------

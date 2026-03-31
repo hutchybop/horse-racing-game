@@ -60,12 +60,8 @@ def setup_logger():
     console_format = logging.Formatter(log_format)
     console_handler.setFormatter(console_format)
     # File handler
-    if os.getenv("location") == "server":
-        file_handler = logging.FileHandler(
-            "/home/hutch/horse-racing-game/races_scraper/races_scraper.log", mode="a"
-        )
-    else:
-        file_handler = logging.FileHandler("races_scraper.log", mode="a")
+    log_path = os.getenv("ALT_SCRAPER_PATH", "races_scraper.log")
+    file_handler = logging.FileHandler(log_path, mode="a")
     file_handler.setLevel(numeric_level)
     file_handler.setFormatter(console_format)
     # Attach both

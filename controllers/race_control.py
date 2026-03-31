@@ -1,108 +1,112 @@
-import random
-from flask import Blueprint, render_template, current_app, request, redirect, flash
-from math import ceil
-from collections import defaultdict
+from bson.errors import InvalidId
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+)
+
+from controllers.game_logic import format_game_races, select_proportional_races
+from jobs.service import (
+    MIN_REQUIRED_RACES,
+    enqueue_job,
+    get_active_job,
+    get_job_by_id,
+    get_logs_after_seq,
+    get_race_count,
+    has_minimum_races,
+    serialize_job,
+)
 
 race_control = Blueprint(
     "race_control", __name__, template_folder="templates", static_folder="static"
 )
 
 
+def get_game_state() -> dict:
+    return current_app.db.game_races.find_one({}) or {"game_tracker": 0, "races": []}
+
+
+def get_game_tracker() -> int:
+    return int(get_game_state().get("game_tracker", 0))
+
+
+def should_gate_to_scraper() -> bool:
+    game_tracker = get_game_tracker()
+    return game_tracker == 0 and not has_minimum_races(
+        current_app.db, MIN_REQUIRED_RACES
+    )
+
+
+def choose_game_races(total_to_select: int = 10) -> list[dict]:
+    races = list(current_app.db.races.find({}))
+    return select_proportional_races(races, total_to_select=total_to_select)
+
+
+def initialize_new_game(total_to_select: int = 10) -> bool:
+    selected_races = choose_game_races(total_to_select=total_to_select)
+    if len(selected_races) != total_to_select:
+        return False
+
+    formatted_races = format_game_races(selected_races)
+
+    current_app.db.game_races.delete_many({})
+    current_app.db.game_races.insert_one({"game_tracker": 1, "races": formatted_races})
+
+    selected_ids = [race["_id"] for race in selected_races]
+    original_races = list(current_app.db.races.find({"_id": {"$in": selected_ids}}))
+    if original_races:
+        result = current_app.db.played_races.insert_many(original_races)
+        if result.inserted_ids and len(result.inserted_ids) == len(original_races):
+            current_app.db.races.delete_many({"_id": {"$in": selected_ids}})
+
+    return True
+
+
+def normalize_job(job: dict | None) -> dict | None:
+    serialized = serialize_job(job)
+    if not serialized:
+        return None
+    serialized["is_active"] = serialized.get("status") in {"queued", "running"}
+    return serialized
+
+
 @race_control.route("/", methods=["GET"])
 def index():
+    if should_gate_to_scraper():
+        return redirect("/scraper")
 
-    game_races = current_app.db.game_races.find_one({})
-    game_tracker = game_races.get("game_tracker", 0)
+    game_tracker = get_game_tracker()
 
     return render_template("index.html", title="Home", game_tracker=game_tracker)
 
 
 @race_control.route("/game_config", methods=["GET"])
 def game_config():
-
     restart = request.args.get("restart")
-    # Restart the game
     if restart == "true":
         flash("Game restarted", "success")
         current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
 
-    game_races = current_app.db.game_races.find_one({})
-    game_tracker = game_races.get("game_tracker", 0)
-    # Create the game if game_tracker is 0
+    game_tracker = get_game_tracker()
     if game_tracker == 0:
-        # --- 1️⃣ Fetch and group races by distance ---
-        races = list(current_app.db.races.find({}))
-        races_by_distance = defaultdict(list)
-        for race in races:
-            distance = race.get("distance")
-            if distance:
-                races_by_distance[distance].append(race)
-
-        # --- 2️⃣ Figure out how many races exist per distance ---
-        counts = {
-            distance: len(race_list)
-            for distance, race_list in races_by_distance.items()
-        }
-        total_races = sum(counts.values())
-
-        # --- 3️⃣ Select proportionally based on total ---
-        total_to_select = 10
-        selected_races = []
-
-        for distance, race_list in races_by_distance.items():
-            # Calculate the proportion of races at this distance
-            portion = len(race_list) / total_races
-            # Decide how many to pick from this distance
-            num_to_pick = max(1, ceil(portion * total_to_select))
-            # Randomly choose that many races from the group
-            selected_races += random.sample(race_list, min(num_to_pick, len(race_list)))
-
-        # --- 4️⃣ Make sure we have exactly 10 races ---
-        selected_races = random.sample(selected_races, 10)
-
-        # --- 5️⃣ Format races and reset the game document ---
-        formatted_races = []
-        for i, race in enumerate(selected_races, start=1):
-            formatted_races.append(
-                {
-                    "race_number": i,
-                    "title": race.get("title"),
-                    "course": race.get("course"),
-                    "date": race.get("date"),
-                    "distance": race.get("distance"),
-                    "racing_tv_url": race.get("racing_tv_url"),
-                    "horses": race.get("horses", []),
-                }
+        if not has_minimum_races(current_app.db, MIN_REQUIRED_RACES):
+            return redirect("/scraper")
+        if not initialize_new_game(total_to_select=10):
+            flash(
+                "Unable to create a full 10-race game from available races.",
+                "warning",
             )
-
-        # Remove existing game_races doc and insert new one
-        current_app.db.game_races.delete_many({})  # clear old game state
-        current_app.db.game_races.insert_one(
-            {"game_tracker": game_tracker + 1, "races": formatted_races}
-        )
-
-        # --- 6️⃣ Move selected races to played_races ---
-        # Collect selected race IDs
-        selected_ids = [race["_id"] for race in selected_races]
-
-        # Fetch their full documents from the master races collection
-        original_races = list(current_app.db.races.find({"_id": {"$in": selected_ids}}))
-
-        # Insert into played_races first, only then delete from races
-        if original_races:
-            result = current_app.db.played_races.insert_many(original_races)
-            if result.inserted_ids and len(result.inserted_ids) == len(original_races):
-                # Only delete if all races were inserted successfully
-                current_app.db.races.delete_many({"_id": {"$in": selected_ids}})
+            return redirect("/scraper")
     elif game_tracker == 10:
-        #   The game has finished
         return redirect("/finished")
     elif game_tracker < 0 or game_tracker > 10:
-        # If the game_tracker is not between 1 or 10 reset it and return to index
         current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
         return redirect("/")
     else:
-        # If game_tracker is not 0 just increase by 1
         current_app.db.game_races.update_one({}, {"$inc": {"game_tracker": 1}})
 
     return redirect("/hrg")
@@ -110,26 +114,28 @@ def game_config():
 
 @race_control.route("/hrg", methods=["GET"])
 def hrg():
-
-    game_races = current_app.db.game_races.find_one({})
-    game_tracker = game_races.get("game_tracker", 0)
+    game_races = get_game_state()
+    game_tracker = int(game_races.get("game_tracker", 0))
 
     continued = request.args.get("continued")
-    # Restart the game
     if continued == "true":
         flash(f"Game resumed from Race {game_tracker}", "success")
 
-    # If no game is in progress ie game_tracker is 0, return to index
-    #  Or if the game_tracker is not between 1 or 10 reset it and return to index
     if game_tracker == 0:
         return redirect("/")
     elif game_tracker < 0 or game_tracker > 10:
         current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
         return redirect("/")
 
+    current_race = None
     for race in game_races.get("races"):
         if race.get("race_number") == game_tracker:
             current_race = race
+
+    if current_race is None:
+        current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
+        flash("Game data is missing for the current race.", "warning")
+        return redirect("/")
 
     return render_template(
         "hrg.html",
@@ -141,20 +147,24 @@ def hrg():
 
 @race_control.route("/race_result", methods=["GET"])
 def race_result():
-    game_races = current_app.db.game_races.find_one({})
-    game_tracker = game_races.get("game_tracker", 0)
+    game_races = get_game_state()
+    game_tracker = int(game_races.get("game_tracker", 0))
 
-    # If no game is in progress ie game_tracker is 0, return to index
-    #  Or if the game_tracker is not between 1 or 10 reset it and return to index
     if game_tracker == 0:
         return redirect("/")
     elif game_tracker < 0 or game_tracker > 10:
         current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
         return redirect("/")
 
+    current_race = None
     for race in game_races.get("races"):
         if race.get("race_number") == game_tracker:
             current_race = race
+
+    if current_race is None:
+        current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
+        flash("Game data is missing for the current race.", "warning")
+        return redirect("/")
 
     return render_template(
         "race_result.html",
@@ -166,11 +176,9 @@ def race_result():
 
 @race_control.route("/finished", methods=["GET"])
 def finished():
-    game_races = current_app.db.game_races.find_one({})
-    game_tracker = game_races.get("game_tracker", 0)
+    game_races = get_game_state()
+    game_tracker = int(game_races.get("game_tracker", 0))
 
-    # If no game is in progress ie game_tracker is 0, return to index
-    #  Or if the game_tracker is not between 1 or 10 reset it and return to index
     if game_tracker == 0:
         return redirect("/")
     elif game_tracker < 0 or game_tracker > 10:
@@ -186,3 +194,113 @@ def finished():
 def test_flash():
     flash("This is a test flash", "success")
     return redirect("/hrg")
+
+
+@race_control.route("/scraper", methods=["GET"])
+def scraper():
+    race_count = get_race_count(current_app.db)
+    game_tracker = get_game_tracker()
+    active_job = normalize_job(get_active_job(current_app.db))
+
+    if race_count >= MIN_REQUIRED_RACES and active_job is None:
+        return redirect("/")
+
+    return render_template(
+        "scraper.html",
+        title="Race Scraper",
+        race_count=race_count,
+        min_required=MIN_REQUIRED_RACES,
+        game_tracker=game_tracker,
+        active_job=active_job,
+    )
+
+
+@race_control.route("/api/races/count", methods=["GET"])
+def api_race_count():
+    race_count = get_race_count(current_app.db)
+    return jsonify(
+        {
+            "count": race_count,
+            "min_required": MIN_REQUIRED_RACES,
+            "enough": race_count >= MIN_REQUIRED_RACES,
+        }
+    )
+
+
+@race_control.route("/api/jobs", methods=["POST"])
+def api_create_job():
+    payload = request.get_json(silent=True) or {}
+    job_type = str(payload.get("job_type", "")).strip()
+
+    try:
+        queued_job, active_job = enqueue_job(current_app.db, job_type=job_type)
+    except ValueError:
+        return jsonify({"error": "Unsupported job_type"}), 400
+
+    if active_job:
+        return (
+            jsonify(
+                {
+                    "error": "An active job already exists",
+                    "active_job": normalize_job(active_job),
+                }
+            ),
+            409,
+        )
+
+    return jsonify({"job": normalize_job(queued_job)}), 201
+
+
+@race_control.route("/api/jobs/active", methods=["GET"])
+def api_active_job():
+    active_job = get_active_job(current_app.db)
+    return jsonify({"job": normalize_job(active_job)})
+
+
+@race_control.route("/api/jobs/<job_id>", methods=["GET"])
+def api_get_job(job_id):
+    try:
+        job = get_job_by_id(current_app.db, job_id)
+    except InvalidId:
+        return jsonify({"error": "Invalid job id"}), 400
+
+    if not job:
+        return jsonify({"error": "Job not found"}), 404
+
+    return jsonify({"job": normalize_job(job)})
+
+
+@race_control.route("/api/jobs/<job_id>/logs", methods=["GET"])
+def api_get_job_logs(job_id):
+    try:
+        job = get_job_by_id(current_app.db, job_id)
+    except InvalidId:
+        return jsonify({"error": "Invalid job id"}), 400
+
+    if not job:
+        return jsonify({"error": "Job not found"}), 404
+
+    try:
+        after_seq = int(request.args.get("after_seq", 0))
+    except ValueError:
+        return jsonify({"error": "after_seq must be an integer"}), 400
+
+    logs = get_logs_after_seq(current_app.db, job_id=job_id, after_seq=after_seq)
+    lines = [
+        {
+            "seq": row["seq"],
+            "ts": row["ts"].isoformat() if row.get("ts") else None,
+            "stream": row.get("stream", "stdout"),
+            "line": row.get("line", ""),
+        }
+        for row in logs
+    ]
+    next_seq = lines[-1]["seq"] if lines else after_seq
+
+    return jsonify(
+        {
+            "job": normalize_job(job),
+            "lines": lines,
+            "next_seq": next_seq,
+        }
+    )

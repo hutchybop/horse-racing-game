@@ -39,25 +39,31 @@ pip3 install -r requirements.txt
 In the project root, create a `.env` file containing:
 
 ```bash
+# From which logger level to show - DEBUG < INFO < CHECK < API < SUCCESS < WARNING < ERROR < CRITICAL
+LOG_LEVEL=DEBUG || INFO || CHECK || API || SUCCESS || Warning || ERROR || CRITICAL
 MONGODB_URI=your_mongodb_connection_string
-API_KEY_1=your_first_rapidapi_key
-API_KEY_2=your_second_key   # Optional
-# ... up to API_KEY_10
+SECRET_KEY=your_super_secret-_session-key
+API_KEY_1=your_rapidapi_key
+# ALT_SCRAPER_PATH=path_to_scraper_log_if_required-Optional
 ```
-
-You can add up to **10 RapidAPI keys** to allow for rotation and reduce rate limits.
 
 ---
 
 ## 🏇 Running the Web App
 
-Start the Flask app (default port 5000):
+Start the Flask app on port 3008:
 
 ```bash
-flask run
+flask run -p 3008
+# or
+python3 web.py
 ```
 
-Visit: [http://localhost:5000](http://localhost:5000)
+Visit: [http://localhost:3008](http://localhost:3008)
+
+When the app starts, it now checks whether at least **10 races** exist in the `races`
+collection. If not, it redirects to the **Scraper** page where you can run data
+collection jobs and monitor live log output.
 
 ---
 
@@ -70,11 +76,59 @@ python races_scraper/races_scraper.py
 ```
 
 - Logs are written to: `races_scraper/races_scraper.log`
-- Uses multiple API keys in sequence.
 - Checks for valid **RacingTV replays** before saving races.
 - Adheres to RapidAPI terms and conditions.
 
 Note: The initial scrape may take **15–20 minutes** depending on available data.
+Note: You may not gain enough races initialy for a full game, meaning you may have to try again when the api limit has been refreshed.
+
+---
+
+## 🧰 Background Job Runner (Docker/Gunicorn Safe)
+
+The app now uses a Mongo-backed job queue for scraper actions:
+
+- `scrape_races` runs `races_scraper/races_scraper.py`
+- `move_races` runs `races_scraper/util/move_races.py`
+- Job state and logs are stored in MongoDB (`jobs`, `job_logs`)
+- A separate worker process executes queued jobs
+
+### Local Development Mode
+
+- If `ENV` is **not** set to `production`, the app auto-starts an in-process job
+  worker when running `flask run` or `python3 web.py`.
+- This means your existing local `.env` does not need extra worker setup.
+
+### Production Mode
+
+- If `ENV=production`, the web app does **not** auto-start a worker.
+- Run the dedicated `worker` process/container for job execution.
+
+### Run with Docker Compose
+
+1. Copy `.env.example` to `.env` and set values.
+2. For the bundled `mongo` service, set:
+   - `MONGODB_URI=mongodb://mongo:27017/horseRacingGame`
+3. Start services:
+
+```bash
+docker compose up --build
+```
+
+Services:
+
+- `web` (Gunicorn Flask app) on `http://localhost:3008`
+- `worker` (Mongo-backed job runner)
+- `mongo` (MongoDB)
+
+`docker-compose.yml` sets `ENV=production` automatically for `web` and `worker`.
+
+### GHCR image publishing
+
+- Workflow file: `.github/workflows/docker-ghcr.yml`
+- Trigger: push to `main`
+- Output image: `ghcr.io/<owner>/<repo>` with `latest` and `sha-...` tags
+- Auth: uses `${{ secrets.GITHUB_TOKEN }}` with `packages: write` permission
 
 ---
 

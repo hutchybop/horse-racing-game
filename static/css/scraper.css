@@ -1,0 +1,18 @@
+.log-box {
+    min-height: 280px;
+    max-height: 380px;
+    overflow-y: auto;
+    background-color: #111827;
+    color: #e5e7eb;
+    border: 1px solid #334155;
+    border-radius: 0.4rem;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+    white-space: pre-wrap;
+}
+
+#jobTitle {
+    font-weight: 700;
+}

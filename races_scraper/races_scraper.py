@@ -53,8 +53,8 @@ def setup_logger():
     NAME_WIDTH = 4
     # Define the format with alignment
     log_format = (
-        "%(asctime)s - %(filename)s:%(lineno)",
-        f"-{NAME_WIDTH}s - %(levelname)-{LEVEL_WIDTH}s - %(message)s",
+        f"%(asctime)s - %(filename)s:%(lineno)-{NAME_WIDTH}s-"
+        f" %(levelname)-{LEVEL_WIDTH}s - %(message)s"
     )
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
@@ -62,12 +62,8 @@ def setup_logger():
     console_format = logging.Formatter(log_format)
     console_handler.setFormatter(console_format)
     # File handler
-    if os.getenv("location") == "server":
-        file_handler = logging.FileHandler(
-            "/home/hutch/horse-racing-game/races_scraper/races_scraper.log", mode="a"
-        )
-    else:
-        file_handler = logging.FileHandler("races_scraper.log", mode="a")
+    log_path = os.getenv("ALT_SCRAPER_PATH", "races_scraper.log")
+    file_handler = logging.FileHandler(log_path, mode="a")
     file_handler.setLevel(numeric_level)
     file_handler.setFormatter(console_format)
     # Attach both
@@ -218,8 +214,8 @@ def get_api_data(endpoint, param_type=None, param=None, current_key_index=0):
                     )
                 if attempt < max_retries:
                     logger.warning(
-                        "Rate limit hit (429). Waiting",
-                        f"{retry_delay} seconds before retry...",
+                        f"Rate limit hit (429). "
+                        f"Waiting {retry_delay} seconds before retry..."
                     )
                     time.sleep(retry_delay)
                     continue
@@ -471,8 +467,8 @@ if __name__ == "__main__":
                             current_key_index += 1
                             if current_key_index < len(API_KEYS):
                                 logger.api(
-                                    "Rate limit reached for",
-                                    f"API_KEY_{current_key_index}",
+                                    f"Rate limit reached for "
+                                    f"API_KEY_{current_key_index}"
                                 )
                                 logger.api(f"API Requests left for Key: {e.api_calls}")
                                 logger.api(f"API key will reset at: {e.reset_time}")

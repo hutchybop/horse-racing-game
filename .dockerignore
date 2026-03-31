@@ -1,3 +1,13 @@
+# Git
+.git
+.gitignore
+
+# Environment
+.env
+.env.*
+.env_example
+.env.local
+
 # Python
 __pycache__/
 *.py[cod]
@@ -16,13 +26,6 @@ dist/
 build/
 .venv/
 venv/
-*.egg-info
-
-# Environment
-.env
-.env.*
-.env_example
-.env.local
 
 # IDE
 .vscode/
@@ -45,3 +48,7 @@ replacements.txt
 # OS
 .DS_Store
 Thumbs.db
+
+# Docs & Extras (not needed in container)
+docs/
+money/

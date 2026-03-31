@@ -4,7 +4,6 @@ from pymongo.errors import BulkWriteError
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-
 # Load .env
 load_dotenv("../../.env")
 
