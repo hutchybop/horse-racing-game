@@ -72,6 +72,10 @@ def create_app():
     app.config["SECRET_KEY"] = secret_key
     app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+    @app.get("/health")
+    def health():
+        return {"status": "ok", "service": "horse-racing-game"}, 200
+
     app.register_blueprint(race_control)
     start_dev_worker_if_needed()
 

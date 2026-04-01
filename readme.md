@@ -125,10 +125,10 @@ Services:
 
 ### GHCR image publishing
 
-- Workflow file: `.github/workflows/docker-ghcr.yml`
-- Trigger: push to `main`
-- Output image: `ghcr.io/<owner>/<repo>` with `latest` and `sha-...` tags
-- Auth: uses `${{ secrets.GITHUB_TOKEN }}` with `packages: write` permission
+- Workflow file: `.github/workflows/docker-release.yml`
+- Trigger: push of a semver tag like `v0.1.0`
+- Guardrail: workflow only publishes if the tagged commit is contained in `main`
+- Output image: `ghcr.io/<owner>/<repo>` with `vX.Y.Z`, `latest`, and `sha-...` tags
 
 ---
 

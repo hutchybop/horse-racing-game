@@ -83,7 +83,7 @@ def check_api_key():
     API_KEYS = [key for key in API_KEYS if key]
 
     if not API_KEYS:
-        logger.critical("No API keys found! Set API_KEY_1, API_KEY_2, etc. Exiting")
+        logger.critical("No API key found! Set API_KEY_1 in .env. Exiting")
         raise SystemExit(1)
     else:
         return API_KEYS
