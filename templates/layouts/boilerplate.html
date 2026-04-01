@@ -4,6 +4,28 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileImage" content="{{ url_for('static', filename='favicons/favicon-144x144.png') }}" />
+        <meta name="msapplication-config" content="{{ url_for('static', filename='favicons/browserconfig.xml') }}" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='favicons/favicon-57x57.png') }}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='favicons/favicon-60x60.png') }}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='favicons/favicon-72x72.png') }}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='favicons/favicon-76x76.png') }}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='favicons/favicon-114x114.png') }}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='favicons/favicon-120x120.png') }}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='favicons/favicon-144x144.png') }}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='favicons/favicon-152x152.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicons/favicon-180x180.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicons/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='favicons/favicon-192x192.png') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+        <link rel="manifest" href="{{ url_for('static', filename='favicons/manifest.json') }}">
+
         <title>{{ title | default('voxMate') }}</title>
         
         <!-- Google fonts - Ubuntu -->
