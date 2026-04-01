@@ -38,6 +38,7 @@ venv/
 *.log
 races_scraper.log
 races_scraper/races_scraper.log
+ship/
 
 # Project specific
 hrg_env/

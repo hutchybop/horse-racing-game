@@ -4,7 +4,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
-
 ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
 load_dotenv(ENV_PATH)
 
