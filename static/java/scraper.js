@@ -66,18 +66,17 @@
     logOutput.scrollTop = logOutput.scrollHeight;
   }
 
-  async function refreshRaceCount(redirectIfReady) {
+  async function refreshRaceCount() {
     const res = await fetch("/api/races/count");
     if (!res.ok) {
       return false;
     }
     const data = await res.json();
-    raceCountBadge.textContent = `${data.count} / ${data.min_required} races`;
+    raceCountBadge.textContent = `${data.count} races`;
+    raceCountBadge.className = "badge rounded-pill";
+    raceCountBadge.classList.add(data.enough ? "text-bg-success" : "text-bg-warning");
     if (data.enough) {
       readyPanel.classList.remove("d-none");
-      if (redirectIfReady) {
-        window.location.href = "/";
-      }
     } else {
       readyPanel.classList.add("d-none");
     }
@@ -120,13 +119,14 @@
 
     if (activeJob.status === "running" || activeJob.status === "queued") {
       setButtonsDisabled(true);
+      await refreshRaceCount();
       return;
     }
 
     setButtonsDisabled(false);
     setCancelVisible(false);
     stopPolling();
-    await refreshRaceCount(true);
+    await refreshRaceCount();
   }
 
   function startPolling() {
@@ -217,7 +217,7 @@
   });
 
   refreshRaceCountBtn.addEventListener("click", function () {
-    refreshRaceCount(true);
+    refreshRaceCount();
   });
 
   if (activeJob) {
@@ -230,5 +230,5 @@
     setCancelVisible(false);
   }
 
-  refreshRaceCount(false);
+  refreshRaceCount();
 })();

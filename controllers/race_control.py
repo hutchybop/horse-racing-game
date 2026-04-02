@@ -26,6 +26,8 @@ race_control = Blueprint(
     "race_control", __name__, template_folder="templates", static_folder="static"
 )
 
+RACES_PER_GAME = 10
+
 
 def get_game_state() -> dict:
     return current_app.db.game_races.find_one({}) or {"game_tracker": 0, "races": []}
@@ -35,11 +37,18 @@ def get_game_tracker() -> int:
     return int(get_game_state().get("game_tracker", 0))
 
 
-def should_gate_to_scraper() -> bool:
-    game_tracker = get_game_tracker()
-    return game_tracker == 0 and not has_minimum_races(
-        current_app.db, MIN_REQUIRED_RACES
-    )
+def get_games_left(total_races: int, races_per_game: int = RACES_PER_GAME) -> int:
+    if races_per_game <= 0:
+        return 0
+    return max(0, total_races // races_per_game)
+
+
+def get_games_badge_variant(games_left: int) -> str:
+    if games_left <= 1:
+        return "danger"
+    if games_left <= 16:
+        return "warning"
+    return "success"
 
 
 def choose_game_races(total_to_select: int = 10) -> list[dict]:
@@ -77,39 +86,51 @@ def normalize_job(job: dict | None) -> dict | None:
 
 @race_control.route("/", methods=["GET"])
 def index():
-    if should_gate_to_scraper():
-        return redirect("/scraper")
-
     game_tracker = get_game_tracker()
     total_races = get_race_count(current_app.db)
-    games_exact = total_races / 10
-    approx_games = int(((games_exact + 5) // 10) * 10)
+    games_left = get_games_left(total_races)
+    games_badge_variant = get_games_badge_variant(games_left)
 
     return render_template(
         "index.html",
         title="Home",
         game_tracker=game_tracker,
-        approx_games=approx_games,
+        total_races=total_races,
+        games_left=games_left,
+        games_badge_variant=games_badge_variant,
+        min_required=MIN_REQUIRED_RACES,
     )
 
 
 @race_control.route("/game_config", methods=["GET"])
 def game_config():
-    restart = request.args.get("restart")
-    if restart == "true":
-        flash("Game restarted", "success")
-        current_app.db.game_races.update_one({}, {"$set": {"game_tracker": 0}})
-
     game_tracker = get_game_tracker()
+    restart = request.args.get("restart") == "true"
+    if restart and game_tracker != 0:
+        if not has_minimum_races(current_app.db, MIN_REQUIRED_RACES):
+            flash(
+                "Cannot start a new game yet. "
+                "Continue the current game or add more races.",
+                "warning",
+            )
+            return redirect("/")
+        flash("Game restarted", "success")
+        game_tracker = 0
+
     if game_tracker == 0:
         if not has_minimum_races(current_app.db, MIN_REQUIRED_RACES):
-            return redirect("/scraper")
+            flash(
+                f"At least {MIN_REQUIRED_RACES} races are required "
+                "to start a new game.",
+                "warning",
+            )
+            return redirect("/")
         if not initialize_new_game(total_to_select=10):
             flash(
                 "Unable to create a full 10-race game from available races.",
                 "warning",
             )
-            return redirect("/scraper")
+            return redirect("/")
     elif game_tracker == 10:
         return redirect("/finished")
     elif game_tracker < 0 or game_tracker > 10:
@@ -210,9 +231,6 @@ def scraper():
     race_count = get_race_count(current_app.db)
     game_tracker = get_game_tracker()
     active_job = normalize_job(get_active_job(current_app.db))
-
-    if race_count >= MIN_REQUIRED_RACES and active_job is None:
-        return redirect("/")
 
     return render_template(
         "scraper.html",

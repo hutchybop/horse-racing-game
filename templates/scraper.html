@@ -12,9 +12,10 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Race Availability Check</h4>
                     <div class="d-flex align-items-center gap-2">
+                        <a href="{{ url_for('race_control.index') }}" class="btn btn-sm btn-outline-secondary">Home</a>
                         <button id="refreshRaceCountBtn" type="button" class="btn btn-sm btn-outline-secondary">Refresh Count</button>
                         <span id="raceCountBadge" class="badge rounded-pill text-bg-primary">
-                            {{ race_count }} / {{ min_required }} races
+                            {{ race_count }} races
                         </span>
                     </div>
                 </div>

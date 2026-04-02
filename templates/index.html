@@ -9,12 +9,18 @@
 
 <div class="container-fluid mt-3">
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-12 col-lg-6">
             <div class="card text-center">
                 <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="game-header-grid">
+                        <span></span>
                         <h4 id="gameTitle" class="mb-0">Horse Racing Game</h4>
-                        <span class="badge rounded-pill text-bg-primary">~{{ approx_games }} games</span>
+                        <span
+                            id="gamesLeftBadge"
+                            class="badge rounded-pill text-bg-{{ games_badge_variant }}"
+                        >
+                            ~{{ games_left }} {{ 'game' if games_left == 1 else 'games' }}
+                        </span>
                     </div>
                     {% if game_tracker != 0 %}
                         <p>A game is already in progress on Race number: <strong>{{ game_tracker }}</strong></p>
@@ -24,7 +30,19 @@
                     {% if game_tracker != 0 %}
                         <a class="btn btn-success mb-2" href="{{ url_for('race_control.hrg', continued='true') }}">Continue Game</a><br>
                     {% endif %}
-                    <a class="btn btn-primary" href="{{ url_for('race_control.game_config', restart='true') }}">Start New Game</a>
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <a
+                            id="startNewGameBtn"
+                            class="btn btn-primary"
+                            href="{{ url_for('race_control.game_config', restart='true') }}"
+                            data-race-count="{{ total_races }}"
+                            data-min-required="{{ min_required }}"
+                            data-game-tracker="{{ game_tracker }}"
+                        >
+                            Start New Game
+                        </a>
+                        <a class="btn btn-outline-secondary" href="{{ url_for('race_control.scraper') }}">Scraper</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,7 +53,7 @@
 
 <div class="container mt-3 mb-3">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-lg-6 mb-3 mb-lg-0">
             <div class="card">
                 <div class="card-header">
                     <h4 id="rules">Rules</h4>
@@ -54,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-header">
                     <h4 id="tips">Tips</h4>
@@ -76,4 +94,8 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block script_content %}
+<script src="{{ url_for('static', filename='java/index.js') }}"></script>
 {% endblock %}

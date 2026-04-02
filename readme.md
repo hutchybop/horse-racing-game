@@ -61,9 +61,9 @@ python3 web.py
 
 Visit: [http://localhost:3008](http://localhost:3008)
 
-When the app starts, it now checks whether at least **10 races** exist in the `races`
-collection. If not, it redirects to the **Scraper** page where you can run data
-collection jobs and monitor live log output.
+The home page displays race availability and a quick link to the **Scraper** page.
+If fewer than **10 races** are available, starting a new game is blocked until enough
+races are collected.
 
 ---
 
