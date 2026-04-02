@@ -1,4 +1,4 @@
-# 🏇 Horse Racing Game
+# 🏇 Horse Racing Game 
 
 A fun Flask-based horse racing betting simulation web app that uses real race data scraped from RapidAPI. Bet on horses, watch real RacingTV replays, and see if your picks win!
 
