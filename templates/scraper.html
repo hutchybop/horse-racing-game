@@ -1,7 +1,7 @@
 {% extends "layouts/boilerplate.html" %}
 
 {% block head_content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/scraper.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/scraper.css', v=asset_version) }}" />
 {% endblock %}
 
 {% block main_content %}
@@ -92,5 +92,5 @@
 {% endblock %}
 
 {% block script_content %}
-<script src="{{ url_for('static', filename='java/scraper.js') }}"></script>
+<script src="{{ url_for('static', filename='java/scraper.js', v=asset_version) }}"></script>
 {% endblock %}

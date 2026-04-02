@@ -1,5 +1,6 @@
 import os
 import threading
+import time
 
 from dotenv import load_dotenv
 from flask import Flask
@@ -71,6 +72,11 @@ def create_app():
 
     app.config["SECRET_KEY"] = secret_key
     app.config["TEMPLATES_AUTO_RELOAD"] = True
+    app.config["ASSET_VERSION"] = os.getenv("ASSET_VERSION", str(int(time.time())))
+
+    @app.context_processor
+    def inject_asset_version():
+        return {"asset_version": app.config["ASSET_VERSION"]}
 
     @app.get("/health")
     def health():
