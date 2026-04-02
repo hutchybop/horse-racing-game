@@ -39,6 +39,8 @@ def init_job_indexes(db: Any) -> None:
     db.jobs.create_index("heartbeat_at")
     db.job_logs.create_index([("job_id", 1), ("seq", 1)], unique=True)
     db.job_logs.create_index("ts")
+    db.worker_heartbeats.create_index("worker_id", unique=True)
+    db.worker_heartbeats.create_index("updated_at")
 
 
 def get_race_count(db: Any) -> int:
@@ -131,6 +133,23 @@ def set_job_pid(db: Any, job_id: ObjectId, pid: int) -> None:
 
 def update_job_heartbeat(db: Any, job_id: ObjectId) -> None:
     db.jobs.update_one({"_id": job_id}, {"$set": {"heartbeat_at": utc_now()}})
+
+
+def upsert_worker_heartbeat(db: Any, worker_id: str, status: str = "running") -> None:
+    db.worker_heartbeats.update_one(
+        {"worker_id": worker_id},
+        {
+            "$set": {
+                "updated_at": utc_now(),
+                "status": status,
+            }
+        },
+        upsert=True,
+    )
+
+
+def mark_worker_stopped(db: Any, worker_id: str) -> None:
+    upsert_worker_heartbeat(db, worker_id=worker_id, status="stopped")
 
 
 def append_job_log(

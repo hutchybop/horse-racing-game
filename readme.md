@@ -103,6 +103,7 @@ The app now uses a Mongo-backed job queue for scraper actions:
 
 - If `ENV=production`, the web app does **not** auto-start a worker.
 - Run the dedicated `worker` process/container for job execution.
+- The worker publishes a Mongo heartbeat; container health checks monitor heartbeat freshness.
 
 ### Run with Docker Compose
 

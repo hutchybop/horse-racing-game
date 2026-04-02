@@ -37,6 +37,13 @@ services:
       - .env
     environment:
       ENV: production
+      WORKER_HEALTH_MAX_AGE_SECONDS: "90"
+    healthcheck:
+      test: ["CMD", "python", "-m", "jobs.worker_healthcheck"]
+      interval: 30s
+      timeout: 8s
+      retries: 3
+      start_period: 45s
     logging:
       driver: json-file
       options:
